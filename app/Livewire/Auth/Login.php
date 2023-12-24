@@ -3,25 +3,23 @@
 namespace App\Livewire\Auth;
 
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Rule;
 use Livewire\Component;
 
 class Login extends Component
 {
-    /** @var string */
-    public $email = '';
+    public string $some_stuff_input = '';
 
-    /** @var string */
-    public $password = '';
+    #[Rule('required|email')]
+    public string $email = '';
 
-    /** @var bool */
-    public $remember = false;
+    #[Rule('required')]
+    public string $password = '';
 
-    protected $rules = [
-        'email' => ['required', 'email'],
-        'password' => ['required'],
-    ];
+    #[Rule('bool')]
+    public bool $remember = false;
 
-    public function authenticate()
+    public function authenticate(): \Illuminate\Http\RedirectResponse|bool
     {
 
         $this->validate();
@@ -29,13 +27,13 @@ class Login extends Component
         if (! Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
             $this->addError('email', trans('auth.failed'));
 
-            return;
+            return false;
         }
 
         return redirect()->intended(route('home'));
     }
 
-    public function render()
+    public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.auth.login')->extends('layouts.auth');
     }
