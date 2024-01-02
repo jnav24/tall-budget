@@ -2,22 +2,21 @@
 
 namespace App\Livewire\Auth\Passwords;
 
-use Livewire\Component;
 use Illuminate\Support\Facades\Password;
+use Livewire\Attributes\Rule;
+use Livewire\Component;
 
 class Email extends Component
 {
-    /** @var string */
-    public $email;
+    #[Rule('required|email')]
+    public string $email;
 
-    /** @var string|null */
+    /** @var string|null|bool */
     public $emailSentMessage = false;
 
-    public function sendResetPasswordLink()
+    public function sendResetPasswordLink(): void
     {
-        $this->validate([
-            'email' => ['required', 'email'],
-        ]);
+        $this->validate();
 
         $response = $this->broker()->sendResetLink(['email' => $this->email]);
 
@@ -40,7 +39,7 @@ class Email extends Component
         return Password::broker();
     }
 
-    public function render()
+    public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.auth.passwords.email')->extends('layouts.auth');
     }
