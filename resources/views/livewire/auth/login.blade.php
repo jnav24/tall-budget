@@ -1,12 +1,7 @@
 @section('title', 'Sign in to your account')
 
 @section('footer')
-    <div class="text-sm leading-5">
-        <a href="{{ route('password.request') }}"
-            class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">
-            Forgot your password?
-        </a>
-    </div>
+    <x-link :to="route('password.request')">Forgot your password?</x-link>
 @endsection
 
 <section>
