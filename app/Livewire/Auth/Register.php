@@ -2,34 +2,30 @@
 
 namespace App\Livewire\Auth;
 
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Auth\Events\Registered;
+use Livewire\Attributes\Rule;
 use Livewire\Component;
 
 class Register extends Component
 {
-    /** @var string */
-    public $name = '';
+    #[Rule('required')]
+    public string $name = '';
 
-    /** @var string */
-    public $email = '';
+    #[Rule('required|email|unique:users')]
+    public string $email = '';
 
-    /** @var string */
-    public $password = '';
+    #[Rule('required|same:passwordConfirmation')]
+    public string $password = '';
 
-    /** @var string */
-    public $passwordConfirmation = '';
+    #[Rule('required')]
+    public string $passwordConfirmation = '';
 
-    public function register()
+    public function register(): \Illuminate\Http\RedirectResponse
     {
-        $this->validate([
-            'name' => ['required'],
-            'email' => ['required', 'email', 'unique:users'],
-            'password' => ['required', 'min:8', 'same:passwordConfirmation'],
-        ]);
+        $this->validate();
 
         $user = User::create([
             'email' => $this->email,
@@ -44,7 +40,7 @@ class Register extends Component
         return redirect()->intended(route('home'));
     }
 
-    public function render()
+    public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.auth.register')->extends('layouts.auth');
     }
