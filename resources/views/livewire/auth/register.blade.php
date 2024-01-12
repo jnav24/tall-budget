@@ -10,9 +10,11 @@
     </h1>
 
     <form wire:submit.prevent="register">
+        <x-forms.input label="First Name" :errors="$errors" wire:model.blur="email" />
+        <x-forms.input label="Last Name" :errors="$errors" wire:model.blur="email" />
         <x-forms.input label="Email" :errors="$errors" wire:model.blur="email" />
-        <x-forms.input label="Email" :errors="$errors" wire:model.blur="email" />
-        <x-forms.input label="Password" :errors="$errors" type="password" wire:model.blur="password" />
+        <x-forms.input label="Password" :errors="$errors" type="password"
+            wire:model.blur="password" />
         <x-forms.input label="Confirm Password" :errors="$errors" type="password"
             wire:model.blur="passwordConfirmation" />
 
