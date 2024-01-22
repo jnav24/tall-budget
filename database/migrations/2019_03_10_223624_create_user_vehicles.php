@@ -16,7 +16,7 @@ class CreateUserVehicles extends Migration
         if (! Schema::hasTable('user_vehicles')) {
             Schema::create('user_vehicles', function (Blueprint $table) {
                 $table->increments('id');
-                $table->integer('user_id', false, 'unsigned');
+                $table->foreignIdFor(\App\Models\User::class)->constrained();
                 $table->string('make');
                 $table->string('model');
                 $table->string('year', 4);
@@ -24,13 +24,6 @@ class CreateUserVehicles extends Migration
                 $table->string('license');
                 $table->tinyInteger('active')->default(1);
                 $table->timestamps();
-            });
-
-            Schema::table('user_vehicles', function (Blueprint $table) {
-                $table->foreign('user_id')
-                    ->references('id')
-                    ->on('users')
-                    ->onDelete('cascade');
             });
         }
     }

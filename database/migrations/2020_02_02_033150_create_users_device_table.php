@@ -16,7 +16,7 @@ class CreateUsersDeviceTable extends Migration
         if (! Schema::hasTable('user_devices')) {
             Schema::create('user_devices', function (Blueprint $table) {
                 $table->increments('id');
-                $table->integer('user_id', false, true);
+                $table->foreignIdFor(\App\Models\User::class)->constrained();
                 $table->string('ip');
                 $table->string('agent');
                 $table->string('verify_secret');
@@ -24,11 +24,6 @@ class CreateUsersDeviceTable extends Migration
                 $table->timestamp('verified_at')->nullable();
                 $table->timestamp('expires_at')->nullable();
                 $table->timestamps();
-
-                $table->foreign('user_id')
-                    ->references('id')
-                    ->on('users')
-                    ->onDelete('cascade');
             });
         }
     }
