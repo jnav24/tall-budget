@@ -16,16 +16,11 @@ class CreateUserProfileTable extends Migration
         if (! Schema::hasTable('user_profile')) {
             Schema::create('user_profile', function (Blueprint $table) {
                 $table->increments('id');
-                $table->integer('user_id', false, true);
+                $table->foreignIdFor(\App\Models\User::class)->constrained();
                 $table->string('first_name');
                 $table->string('last_name');
                 $table->string('image');
                 $table->timestamps();
-
-                $table->foreign('user_id')
-                    ->references('id')
-                    ->on('users')
-                    ->onDelete('cascade');
             });
         }
     }
