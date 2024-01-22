@@ -2,26 +2,30 @@
 
 namespace App\Livewire\Auth;
 
-use App\Providers\RouteServiceProvider;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Verify extends Component
 {
-    public function resend()
+    public function resend(): void
     {
-        if (Auth::user()->hasVerifiedEmail()) {
-            redirect(route('home'));
+        if (Auth::user()) {
+            if (Auth::user()->hasVerifiedEmail()) {
+                redirect(route('home'));
+            }
+
+            Auth::user()->sendEmailVerificationNotification();
+
+            $this->dispatch('resent');
+
+            session()->flash('resent');
         }
-
-        Auth::user()->sendEmailVerificationNotification();
-
-        $this->dispatch('resent');
-
-        session()->flash('resent');
     }
 
-    public function render()
+    public function render(): View|Application|Factory
     {
         return view('livewire.auth.verify')->extends('layouts.auth');
     }
