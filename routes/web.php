@@ -29,24 +29,26 @@ Route::middleware('guest')->group(function () {
 
     Route::get('register', Register::class)
         ->name('register');
+
+    Route::get('password/reset', Email::class)
+        ->name('password.request');
+
+    Route::get('password/reset/{token}', Reset::class)
+        ->name('password.reset');
 });
 
-Route::get('password/reset', Email::class)
-    ->name('password.request');
-
-Route::get('password/reset/{token}', Reset::class)
-    ->name('password.reset');
-
 Route::middleware('auth')->group(function () {
+    Route::get('dashboard', function () {
+        return 'dashboard page';
+    })->name('dashboard');
+
     Route::get('email/verify', Verify::class)
         ->middleware('throttle:6,1')
         ->name('verification.notice');
 
     Route::get('password/confirm', Confirm::class)
         ->name('password.confirm');
-});
 
-Route::middleware('auth')->group(function () {
     Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
         ->middleware('signed')
         ->name('verification.verify');

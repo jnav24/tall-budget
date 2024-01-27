@@ -8,6 +8,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
+use Livewire\Features\SupportRedirects\Redirector;
 
 class Login extends Component
 {
@@ -22,7 +23,7 @@ class Login extends Component
     #[Rule('bool')]
     public bool $remember = false;
 
-    public function authenticate(): \Illuminate\Http\RedirectResponse|bool
+    public function authenticate(): \Illuminate\Http\RedirectResponse|bool|Redirector
     {
 
         $this->validate();
@@ -33,7 +34,7 @@ class Login extends Component
             return false;
         }
 
-        return redirect()->intended(route('home'));
+        return redirect()->intended(route('dashboard'));
     }
 
     public function render(): View|Application|Factory
