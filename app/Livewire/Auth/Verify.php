@@ -6,8 +6,10 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
+#[Layout('layouts.auth')]
 class Verify extends Component
 {
     public function resend(): void
@@ -27,6 +29,6 @@ class Verify extends Component
 
     public function render(): View|Application|Factory
     {
-        return view('livewire.auth.verify')->extends('layouts.auth');
+        return view('livewire.auth.verify');
     }
 }

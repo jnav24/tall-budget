@@ -6,10 +6,12 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 use Livewire\Features\SupportRedirects\Redirector;
 
+#[Layout('layouts.auth')]
 class Login extends Component
 {
     public string $some_stuff_input = '';
@@ -25,7 +27,6 @@ class Login extends Component
 
     public function authenticate(): \Illuminate\Http\RedirectResponse|bool|Redirector
     {
-
         $this->validate();
 
         if (! Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
@@ -39,6 +40,6 @@ class Login extends Component
 
     public function render(): View|Application|Factory
     {
-        return view('livewire.auth.login')->extends('layouts.auth');
+        return view('livewire.auth.login');
     }
 }

@@ -2,14 +2,19 @@
 
 namespace App\Livewire\Auth\Passwords;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
+#[Layout('layouts.auth')]
 class Confirm extends Component
 {
-    /** @var string */
-    public $password = '';
+    public string $password = '';
 
-    public function confirm()
+    public function confirm(): RedirectResponse
     {
         $this->validate([
             'password' => 'required|current_password',
@@ -20,8 +25,8 @@ class Confirm extends Component
         return redirect()->intended(route('home'));
     }
 
-    public function render()
+    public function render(): View|Application|Factory
     {
-        return view('livewire.auth.passwords.confirm')->extends('layouts.auth');
+        return view('livewire.auth.passwords.confirm');
     }
 }

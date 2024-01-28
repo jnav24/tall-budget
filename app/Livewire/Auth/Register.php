@@ -9,9 +9,11 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 
+#[Layout('layouts.auth')]
 class Register extends Component
 {
     #[Rule('required')]
@@ -47,6 +49,6 @@ class Register extends Component
 
     public function render(): View|Application|Factory
     {
-        return view('livewire.auth.register')->extends('layouts.auth');
+        return view('livewire.auth.register');
     }
 }
