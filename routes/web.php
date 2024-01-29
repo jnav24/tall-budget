@@ -8,6 +8,7 @@ use App\Livewire\Auth\Passwords\Email;
 use App\Livewire\Auth\Passwords\Reset;
 use App\Livewire\Auth\Register;
 use App\Livewire\Auth\Verify;
+use App\Livewire\Dashboard\Home;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,13 +40,14 @@ Route::middleware('guest')->group(function () {
     });
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::group(['prefix' => 'dashboard'], function () {
-        Route::get('/', function () {
-            return 'dashboard page';
-        })->name('dashboard');
+        Route::get('/', Home::class)
+            ->name('dashboard.home');
     });
+});
 
+Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'email/verify'], function () {
         Route::get('/', Verify::class)
             ->middleware('throttle:6,1')
