@@ -17,6 +17,7 @@
         <x-forgot-password.email-message :email-sent-message="$emailSentMessage" />
     @else
         <form wire:submit.prevent="sendResetPasswordLink">
+            @csrf
             <x-forms.input label="Email" :errors="$errors" wire:model.blur="email" />
 
             <div class="mt-6">

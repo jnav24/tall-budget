@@ -10,6 +10,7 @@
     </h1>
 
     <form wire:submit.prevent="register">
+        @csrf
         <x-forms.input label="First Name" :errors="$errors" wire:model.blur="email" />
         <x-forms.input label="Last Name" :errors="$errors" wire:model.blur="email" />
         <x-forms.input label="Email" :errors="$errors" wire:model.blur="email" />
