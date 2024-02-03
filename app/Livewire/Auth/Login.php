@@ -35,7 +35,7 @@ class Login extends Component
             return false;
         }
 
-        return redirect()->intended(route('dashboard'));
+        return redirect()->intended(route('dashboard.home'));
     }
 
     public function render(): View|Application|Factory
