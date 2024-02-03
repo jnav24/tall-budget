@@ -44,6 +44,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/', Home::class)
             ->name('dashboard.home');
+
+        Route::get('/budgets', Home::class)
+            ->name('dashboard.budgets');
+
+        Route::get('/budgets/{budget}', Home::class)
+            ->name('dashboard.budget.edit');
+
+        Route::get('/reports', Home::class)
+            ->name('dashboard.reports');
     });
 });
 

@@ -2,7 +2,7 @@
 
 use function Livewire\Volt\{state};
 
-$menu = [['to' => 'dashboard.home', 'label' => 'Home', 'icon' => 'icons.home'], ['to' => 'dashboard.home', 'label' => 'Budgets', 'icon' => 'icons.chart'], ['to' => 'dashboard.home', 'label' => 'Reports', 'icon' => 'icons.reports']];
+$menu = [['to' => 'dashboard.home', 'label' => 'Home', 'icon' => 'icons.home'], ['to' => 'dashboard.budgets', 'label' => 'Budgets', 'icon' => 'icons.chart'], ['to' => 'dashboard.reports', 'label' => 'Reports', 'icon' => 'icons.reports']];
 state(['showMobileNav' => false, 'menu' => $menu, 'count' => 0]);
 
 $increment = fn() => $this->count++;
