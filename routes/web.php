@@ -8,6 +8,7 @@ use App\Livewire\Auth\Passwords\Email;
 use App\Livewire\Auth\Passwords\Reset;
 use App\Livewire\Auth\Register;
 use App\Livewire\Auth\Verify;
+use App\Livewire\Dashboard\Budget;
 use App\Livewire\Dashboard\Home;
 use Illuminate\Support\Facades\Route;
 
@@ -45,7 +46,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/', Home::class)
             ->name('dashboard.home');
 
-        Route::get('/budgets', Home::class)
+        Route::get('/budgets', Budget::class)
             ->name('dashboard.budgets');
 
         Route::get('/budgets/{budget}', Home::class)
