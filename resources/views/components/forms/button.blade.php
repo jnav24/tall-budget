@@ -10,9 +10,9 @@
 @endphp
 
 <button
-    class="focus:shadow-outline rounded transition duration-150 focus:outline-none {{ $colors[$color] ?? $colors['default'] }} {{ $block ? 'w-full' : '' }} {{ $fab ? 'rounded-full p-2' : 'rounded-md px-6 py-3 text-sm' }}"
+    class="focus:shadow-outline {{ $colors[$color] ?? $colors['default'] }} {{ $block ? 'w-full' : '' }} {{ $fab ? 'rounded-full p-2' : 'rounded-md px-6 py-3 text-sm' }} rounded transition duration-150 focus:outline-none"
     {{ $attributes }}>
-    <span class="flex flex-row items-center justify-center">
+    <span class="flex flex-row items-center justify-center space-x-2">
         {{ $slot }}
     </span>
 </button>

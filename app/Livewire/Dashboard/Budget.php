@@ -11,6 +11,8 @@ use Livewire\Component;
 #[Layout('layouts.dashboard')]
 class Budget extends Component
 {
+    public array $budgets = [];
+
     public function render(): View|Application|Factory
     {
         return view('livewire.dashboard.budget');
