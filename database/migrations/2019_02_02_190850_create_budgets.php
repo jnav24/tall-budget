@@ -15,8 +15,8 @@ class CreateBudgets extends Migration
     {
         if (! Schema::hasTable('budgets')) {
             Schema::create('budgets', function (Blueprint $table) {
-                $table->increments('id');
-                $table->foreignIdFor(\App\Models\User::class)->constrained();
+                $table->id();
+                $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete();
                 $table->string('name');
                 $table->dateTime('budget_cycle');
                 $table->timestamps();
@@ -25,8 +25,8 @@ class CreateBudgets extends Migration
 
         if (! Schema::hasTable('budget_templates')) {
             Schema::create('budget_templates', function (Blueprint $table) {
-                $table->increments('id');
-                $table->foreignIdFor(\App\Models\User::class)->constrained();
+                $table->id();
+                $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete();
                 $table->timestamps();
             });
         }

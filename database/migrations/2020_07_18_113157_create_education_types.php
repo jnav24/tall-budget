@@ -16,7 +16,7 @@ class CreateEducationTypes extends Migration
     {
         if (! Schema::hasTable('education_types')) {
             Schema::create('education_types', function (Blueprint $table) {
-                $table->increments('id');
+                $table->id();
                 $table->string('name');
                 $table->string('slug');
                 $table->timestamps();

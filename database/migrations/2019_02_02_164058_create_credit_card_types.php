@@ -15,7 +15,7 @@ class CreateCreditCardTypes extends Migration
     {
         if (! Schema::hasTable('credit_card_types')) {
             Schema::create('credit_card_types', function (Blueprint $table) {
-                $table->increments('id');
+                $table->id();
                 $table->string('name');
                 $table->string('slug');
                 $table->timestamps();

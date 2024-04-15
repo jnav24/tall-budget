@@ -15,8 +15,8 @@ class CreateUserProfileTable extends Migration
     {
         if (! Schema::hasTable('user_profile')) {
             Schema::create('user_profile', function (Blueprint $table) {
-                $table->increments('id');
-                $table->foreignIdFor(\App\Models\User::class)->constrained();
+                $table->id();
+                $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete();
                 $table->string('first_name');
                 $table->string('last_name');
                 $table->string('image');

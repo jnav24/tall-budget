@@ -15,7 +15,7 @@ class CreateTaxTypes extends Migration
     {
         if (! Schema::hasTable('tax_types')) {
             Schema::create('tax_types', function (Blueprint $table) {
-                $table->increments('id');
+                $table->id();
                 $table->string('name');
                 $table->string('slug');
                 $table->timestamps();

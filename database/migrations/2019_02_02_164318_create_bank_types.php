@@ -15,7 +15,7 @@ class CreateBankTypes extends Migration
     {
         if (! Schema::hasTable('bank_types')) {
             Schema::create('bank_types', function (Blueprint $table) {
-                $table->increments('id');
+                $table->id();
                 $table->string('name');
                 $table->string('slug');
                 $table->timestamps();

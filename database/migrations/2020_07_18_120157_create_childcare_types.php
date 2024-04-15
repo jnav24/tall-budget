@@ -16,7 +16,7 @@ class CreateChildcareTypes extends Migration
     {
         if (! Schema::hasTable('childcare_types')) {
             Schema::create('childcare_types', function (Blueprint $table) {
-                $table->increments('id');
+                $table->id();
                 $table->string('name');
                 $table->string('slug');
                 $table->timestamps();

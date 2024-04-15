@@ -15,7 +15,7 @@ class CreateMedicalTypes extends Migration
     {
         if (! Schema::hasTable('medical_types')) {
             Schema::create('medical_types', function (Blueprint $table) {
-                $table->increments('id');
+                $table->id();
                 $table->string('name');
                 $table->string('slug');
                 $table->timestamps();

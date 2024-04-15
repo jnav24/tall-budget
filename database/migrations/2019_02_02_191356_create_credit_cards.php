@@ -15,63 +15,39 @@ class CreateCreditCards extends Migration
     {
         if (! Schema::hasTable('credit_cards')) {
             Schema::create('credit_cards', function (Blueprint $table) {
-                $table->increments('id');
+                $table->id();
                 $table->string('name');
                 $table->string('limit');
                 $table->string('last_4');
                 $table->string('exp_month');
                 $table->string('exp_year');
                 $table->string('apr');
-                $table->integer('due_date', false, 'unsigned');
-                $table->integer('credit_card_type_id', false, 'unsigned');
-                $table->integer('budget_id', false, 'unsigned');
+                $table->unsignedInteger('due_date');
+                $table->foreignId('budget_id')->constrained()->cascadeOnDelete();
+                $table->foreignId('credit_card_type_id')->constrained()->cascadeOnDelete();
                 $table->dateTime('paid_date');
                 $table->string('confirmation');
                 $table->string('amount');
                 $table->string('balance');
                 $table->timestamps();
             });
-
-            Schema::table('credit_cards', function ($table) {
-                $table->foreign('credit_card_type_id')
-                    ->references('id')
-                    ->on('credit_card_types')
-                    ->onDelete('cascade');
-
-                $table->foreign('budget_id')
-                    ->references('id')
-                    ->on('budgets')
-                    ->onDelete('cascade');
-            });
         }
 
         if (! Schema::hasTable('credit_card_templates')) {
             Schema::create('credit_card_templates', function (Blueprint $table) {
-                $table->increments('id');
+                $table->id();
                 $table->string('name');
                 $table->integer('limit', false, 'unsigned');
                 $table->string('last_4');
                 $table->string('exp_month');
                 $table->string('exp_year');
                 $table->string('apr');
-                $table->integer('due_date', false, 'unsigned');
-                $table->integer('credit_card_type_id', false, 'unsigned');
-                $table->integer('budget_template_id', false, 'unsigned');
+                $table->unsignedInteger('due_date');
+                $table->foreignId('budget_template_id')->constrained()->cascadeOnDelete();
+                $table->foreignId('credit_card_type_id')->constrained()->cascadeOnDelete();
                 $table->string('amount');
                 $table->string('balance');
                 $table->timestamps();
-            });
-
-            Schema::table('credit_card_templates', function ($table) {
-                $table->foreign('credit_card_type_id')
-                    ->references('id')
-                    ->on('credit_card_types')
-                    ->onDelete('cascade');
-
-                $table->foreign('budget_template_id')
-                    ->references('id')
-                    ->on('budget_templates')
-                    ->onDelete('cascade');
             });
         }
     }

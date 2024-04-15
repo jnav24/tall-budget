@@ -15,7 +15,7 @@ class CreateBillTypes extends Migration
     {
         if (! Schema::hasTable('bill_types')) {
             Schema::create('bill_types', function (Blueprint $table) {
-                $table->increments('id');
+                $table->id();
                 $table->string('name');
                 $table->string('slug');
                 $table->timestamps();

@@ -16,7 +16,7 @@ class CreateGiftTypes extends Migration
     {
         if (! Schema::hasTable('gift_types')) {
             Schema::create('gift_types', function (Blueprint $table) {
-                $table->increments('id');
+                $table->id();
                 $table->string('name');
                 $table->string('slug');
                 $table->timestamps();

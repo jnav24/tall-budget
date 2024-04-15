@@ -15,7 +15,7 @@ class CreateInvestmentTypes extends Migration
     {
         if (! Schema::hasTable('investment_types')) {
             Schema::create('investment_types', function (Blueprint $table) {
-                $table->increments('id');
+                $table->id();
                 $table->string('name');
                 $table->string('slug');
                 $table->timestamps();

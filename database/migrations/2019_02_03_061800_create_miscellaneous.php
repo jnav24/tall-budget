@@ -15,40 +15,26 @@ class CreateMiscellaneous extends Migration
     {
         if (! Schema::hasTable('miscellaneous')) {
             Schema::create('miscellaneous', function (Blueprint $table) {
-                $table->increments('id');
-                $table->integer('budget_id', false, 'unsigned');
+                $table->id();
+                $table->foreignId('budget_id')->constrained()->cascadeOnDelete();
                 $table->string('name');
                 $table->string('amount');
-                $table->integer('due_date', false, 'unsigned');
+                $table->unsignedInteger('due_date');
                 $table->dateTime('paid_date');
                 $table->string('confirmation');
-                $table->tinyInteger('not_track_amount')->default(0);
+                $table->boolean('not_track_amount')->default(false);
                 $table->timestamps();
-            });
-
-            Schema::table('miscellaneous', function ($table) {
-                $table->foreign('budget_id')
-                    ->references('id')
-                    ->on('budgets')
-                    ->onDelete('cascade');
             });
         }
 
         if (! Schema::hasTable('miscellaneous_templates')) {
             Schema::create('miscellaneous_templates', function (Blueprint $table) {
-                $table->increments('id');
-                $table->integer('budget_template_id', false, 'unsigned');
+                $table->id();
+                $table->foreignId('budget_template_id')->constrained()->cascadeOnDelete();
                 $table->string('name');
                 $table->string('amount');
-                $table->integer('due_date', false, 'unsigned');
+                $table->unsignedInteger('due_date');
                 $table->timestamps();
-            });
-
-            Schema::table('miscellaneous_templates', function ($table) {
-                $table->foreign('budget_template_id')
-                    ->references('id')
-                    ->on('budget_templates')
-                    ->onDelete('cascade');
             });
         }
     }

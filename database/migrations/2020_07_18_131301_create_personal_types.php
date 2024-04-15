@@ -15,7 +15,7 @@ class CreatePersonalTypes extends Migration
     {
         if (! Schema::hasTable('personal_types')) {
             Schema::create('personal_types', function (Blueprint $table) {
-                $table->increments('id');
+                $table->id();
                 $table->string('name');
                 $table->string('slug');
                 $table->timestamps();

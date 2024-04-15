@@ -15,48 +15,24 @@ class CreateBanks extends Migration
     {
         if (! Schema::hasTable('banks')) {
             Schema::create('banks', function (Blueprint $table) {
-                $table->increments('id');
+                $table->id();
                 $table->string('name');
                 $table->string('amount');
-                $table->integer('bank_type_id', false, 'unsigned');
-                $table->integer('budget_id', false, 'unsigned');
-                $table->integer('bank_template_id', false, 'unsigned');
+                $table->foreignId('bank_type_id')->constrained()->cascadeOnDelete();
+                $table->foreignId('budget_id')->constrained()->cascadeOnDelete();
+                $table->foreignId('budget_template_id')->constrained()->cascadeOnDelete();
                 $table->timestamps();
-            });
-
-            Schema::table('banks', function ($table) {
-                $table->foreign('bank_type_id')
-                    ->references('id')
-                    ->on('bank_types')
-                    ->onDelete('cascade');
-
-                $table->foreign('budget_id')
-                    ->references('id')
-                    ->on('budgets')
-                    ->onDelete('cascade');
             });
         }
 
         if (! Schema::hasTable('bank_templates')) {
             Schema::create('bank_templates', function (Blueprint $table) {
-                $table->increments('id');
+                $table->id();
                 $table->string('name');
                 $table->string('amount');
-                $table->integer('bank_type_id', false, 'unsigned');
-                $table->integer('budget_template_id', false, 'unsigned');
+                $table->foreignId('bank_type_id')->constrained()->cascadeOnDelete();
+                $table->foreignId('budget_template_id')->constrained()->cascadeOnDelete();
                 $table->timestamps();
-            });
-
-            Schema::table('bank_templates', function ($table) {
-                $table->foreign('bank_type_id')
-                    ->references('id')
-                    ->on('bank_types')
-                    ->onDelete('cascade');
-
-                $table->foreign('budget_template_id')
-                    ->references('id')
-                    ->on('budget_templates')
-                    ->onDelete('cascade');
             });
         }
     }

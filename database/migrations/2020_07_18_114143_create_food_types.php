@@ -16,7 +16,7 @@ class CreateFoodTypes extends Migration
     {
         if (! Schema::hasTable('food_types')) {
             Schema::create('food_types', function (Blueprint $table) {
-                $table->increments('id');
+                $table->id();
                 $table->string('name');
                 $table->string('slug');
                 $table->timestamps();

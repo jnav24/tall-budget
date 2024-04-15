@@ -15,52 +15,28 @@ class CreateTax extends Migration
     {
         if (! Schema::hasTable('tax')) {
             Schema::create('tax', function (Blueprint $table) {
-                $table->increments('id');
-                $table->integer('budget_id', false, 'unsigned');
-                $table->integer('tax_type_id', false, 'unsigned');
+                $table->id();
+                $table->foreignId('budget_id')->constrained()->cascadeOnDelete();
+                $table->foreignId('tax_type_id')->constrained()->cascadeOnDelete();
                 $table->string('name');
                 $table->string('amount');
                 $table->string('confirmation');
-                $table->tinyInteger('not_track_amount')->default(0);
-                $table->integer('due_date', false, 'unsigned');
+                $table->boolean('not_track_amount')->default(0);
+                $table->unsignedInteger('due_date');
                 $table->dateTime('paid_date');
                 $table->timestamps();
-            });
-
-            Schema::table('tax', function ($table) {
-                $table->foreign('tax_type_id')
-                    ->references('id')
-                    ->on('tax_types')
-                    ->onDelete('cascade');
-
-                $table->foreign('budget_id')
-                    ->references('id')
-                    ->on('budgets')
-                    ->onDelete('cascade');
             });
         }
 
         if (! Schema::hasTable('tax_templates')) {
             Schema::create('tax_templates', function (Blueprint $table) {
-                $table->increments('id');
-                $table->integer('budget_template_id', false, 'unsigned');
-                $table->integer('tax_type_id', false, 'unsigned');
+                $table->id();
+                $table->foreignId('budget_template_id')->constrained()->cascadeOnDelete();
+                $table->foreignId('tax_type_id')->constrained()->cascadeOnDelete();
                 $table->string('name');
                 $table->string('amount');
-                $table->integer('due_date', false, 'unsigned');
+                $table->unsignedInteger('due_date');
                 $table->timestamps();
-            });
-
-            Schema::table('tax_templates', function ($table) {
-                $table->foreign('tax_type_id')
-                    ->references('id')
-                    ->on('tax_types')
-                    ->onDelete('cascade');
-
-                $table->foreign('budget_template_id')
-                    ->references('id')
-                    ->on('budget_templates')
-                    ->onDelete('cascade');
             });
         }
     }

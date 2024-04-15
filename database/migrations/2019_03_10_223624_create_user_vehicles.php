@@ -15,14 +15,14 @@ class CreateUserVehicles extends Migration
     {
         if (! Schema::hasTable('user_vehicles')) {
             Schema::create('user_vehicles', function (Blueprint $table) {
-                $table->increments('id');
-                $table->foreignIdFor(\App\Models\User::class)->constrained();
+                $table->id();
+                $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete();
                 $table->string('make');
                 $table->string('model');
                 $table->string('year', 4);
                 $table->string('color');
                 $table->string('license');
-                $table->tinyInteger('active')->default(1);
+                $table->boolean('active')->default(1);
                 $table->timestamps();
             });
         }

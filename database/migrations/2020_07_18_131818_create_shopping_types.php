@@ -15,7 +15,7 @@ class CreateShoppingTypes extends Migration
     {
         if (! Schema::hasTable('shopping_types')) {
             Schema::create('shopping_types', function (Blueprint $table) {
-                $table->increments('id');
+                $table->id();
                 $table->string('name');
                 $table->string('slug');
                 $table->timestamps();

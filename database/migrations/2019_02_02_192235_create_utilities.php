@@ -15,51 +15,27 @@ class CreateUtilities extends Migration
     {
         if (! Schema::hasTable('utilities')) {
             Schema::create('utilities', function (Blueprint $table) {
-                $table->increments('id');
-                $table->integer('budget_id', false, 'unsigned');
+                $table->id();
                 $table->string('name');
                 $table->string('amount');
-                $table->integer('due_date', false, 'unsigned');
-                $table->integer('utility_type_id', false, 'unsigned');
+                $table->unsignedInteger('due_date');
+                $table->foreignId('budget_id')->constrained()->cascadeOnDelete();
+                $table->foreignId('utility_type_id')->constrained()->cascadeOnDelete();
                 $table->dateTime('paid_date');
                 $table->string('confirmation');
                 $table->timestamps();
-            });
-
-            Schema::table('utilities', function ($table) {
-                $table->foreign('utility_type_id')
-                    ->references('id')
-                    ->on('utility_types')
-                    ->onDelete('cascade');
-
-                $table->foreign('budget_id')
-                    ->references('id')
-                    ->on('budgets')
-                    ->onDelete('cascade');
             });
         }
 
         if (! Schema::hasTable('utility_templates')) {
             Schema::create('utility_templates', function (Blueprint $table) {
-                $table->increments('id');
-                $table->integer('budget_template_id', false, 'unsigned');
+                $table->id();
                 $table->string('name');
                 $table->string('amount');
-                $table->integer('due_date', false, 'unsigned');
-                $table->integer('utility_type_id', false, 'unsigned');
+                $table->unsignedInteger('due_date');
+                $table->foreignId('budget_template_id')->constrained()->cascadeOnDelete();
+                $table->foreignId('utility_type_id')->constrained()->cascadeOnDelete();
                 $table->timestamps();
-            });
-
-            Schema::table('utility_templates', function ($table) {
-                $table->foreign('utility_type_id')
-                    ->references('id')
-                    ->on('utility_types')
-                    ->onDelete('cascade');
-
-                $table->foreign('budget_template_id')
-                    ->references('id')
-                    ->on('budget_templates')
-                    ->onDelete('cascade');
             });
         }
     }

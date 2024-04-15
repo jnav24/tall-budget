@@ -16,7 +16,7 @@ class CreateHousingTypes extends Migration
     {
         if (! Schema::hasTable('housing_types')) {
             Schema::create('housing_types', function (Blueprint $table) {
-                $table->increments('id');
+                $table->id();
                 $table->string('name');
                 $table->string('slug');
                 $table->timestamps();

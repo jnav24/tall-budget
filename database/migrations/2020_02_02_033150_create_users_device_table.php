@@ -15,8 +15,8 @@ class CreateUsersDeviceTable extends Migration
     {
         if (! Schema::hasTable('user_devices')) {
             Schema::create('user_devices', function (Blueprint $table) {
-                $table->increments('id');
-                $table->foreignIdFor(\App\Models\User::class)->constrained();
+                $table->id();
+                $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete();
                 $table->string('ip');
                 $table->string('agent');
                 $table->string('verify_secret');

@@ -15,49 +15,25 @@ class CreateJobs extends Migration
     {
         if (! Schema::hasTable('jobs')) {
             Schema::create('jobs', function (Blueprint $table) {
-                $table->increments('id');
+                $table->id();
                 $table->string('name');
                 $table->string('amount');
-                $table->integer('budget_id', false, 'unsigned');
-                $table->integer('job_type_id', false, 'unsigned');
+                $table->foreignId('budget_id')->constrained()->cascadeOnDelete();
+                $table->foreignId('job_type_id')->constrained()->cascadeOnDelete();
                 $table->dateTime('initial_pay_date');
                 $table->timestamps();
-            });
-
-            Schema::table('jobs', function ($table) {
-                $table->foreign('budget_id')
-                    ->references('id')
-                    ->on('budgets')
-                    ->onDelete('cascade');
-
-                $table->foreign('job_type_id')
-                    ->references('id')
-                    ->on('job_types')
-                    ->onDelete('cascade');
             });
         }
 
         if (! Schema::hasTable('job_templates')) {
             Schema::create('job_templates', function (Blueprint $table) {
-                $table->increments('id');
+                $table->id();
                 $table->string('name');
                 $table->string('amount');
-                $table->integer('budget_template_id', false, 'unsigned');
-                $table->integer('job_type_id', false, 'unsigned');
+                $table->foreignId('budget_template_id')->constrained()->cascadeOnDelete();
+                $table->foreignId('job_type_id')->constrained()->cascadeOnDelete();
                 $table->dateTime('initial_pay_date');
                 $table->timestamps();
-            });
-
-            Schema::table('job_templates', function ($table) {
-                $table->foreign('budget_template_id')
-                    ->references('id')
-                    ->on('budget_templates')
-                    ->onDelete('cascade');
-
-                $table->foreign('job_type_id')
-                    ->references('id')
-                    ->on('job_types')
-                    ->onDelete('cascade');
             });
         }
     }

@@ -15,7 +15,7 @@ class CreateTravelTypes extends Migration
     {
         if (! Schema::hasTable('travel_types')) {
             Schema::create('travel_types', function (Blueprint $table) {
-                $table->increments('id');
+                $table->id();
                 $table->string('name');
                 $table->string('slug');
                 $table->timestamps();

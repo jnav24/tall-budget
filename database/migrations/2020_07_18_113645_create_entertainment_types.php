@@ -16,7 +16,7 @@ class CreateEntertainmentTypes extends Migration
     {
         if (! Schema::hasTable('entertainment_types')) {
             Schema::create('entertainment_types', function (Blueprint $table) {
-                $table->increments('id');
+                $table->id();
                 $table->string('name');
                 $table->string('slug');
                 $table->timestamps();

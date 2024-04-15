@@ -15,10 +15,9 @@ class CreateBudgetAggregation extends Migration
     {
         if (! Schema::hasTable('budget_aggregation')) {
             Schema::create('budget_aggregation', function (Blueprint $table) {
-                $table->increments('id');
-                $table->foreignIdFor(\App\Models\User::class)->constrained();
-                $table->foreignIdFor(\App\Models\Budget::class)->constrained();
-                $table->integer('budget_id', false, true);
+                $table->id();
+                $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete();
+                $table->foreignIdFor(\App\Models\Budget::class)->constrained()->cascadeOnDelete();
                 $table->string('type'); // spent | saved | earned
                 $table->string('value');
                 $table->timestamps();

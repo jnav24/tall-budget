@@ -15,7 +15,7 @@ class CreateUtilityTypes extends Migration
     {
         if (! Schema::hasTable('utility_types')) {
             Schema::create('utility_types', function (Blueprint $table) {
-                $table->increments('id');
+                $table->id();
                 $table->string('name');
                 $table->string('slug');
                 $table->timestamps();
