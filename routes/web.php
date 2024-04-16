@@ -10,6 +10,7 @@ use App\Livewire\Auth\Register;
 use App\Livewire\Auth\Verify;
 use App\Livewire\Dashboard\Budget;
 use App\Livewire\Dashboard\Home;
+use App\Livewire\Dashboard\Settings;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,6 +55,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('/reports', Home::class)
             ->name('dashboard.reports');
+
+        Route::get('/settings', Settings::class)
+            ->name('dashboard.settings');
     });
 });
 
