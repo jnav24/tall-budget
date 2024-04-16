@@ -1,11 +1,14 @@
 <?php
 
-use function Livewire\Volt\{state};
+use function Livewire\Volt\{on,state};
 
 $menu = [['to' => 'dashboard.home', 'label' => 'Home', 'icon' => 'icons.home'], ['to' => 'dashboard.budgets', 'label' => 'Budgets', 'icon' => 'icons.chart'], ['to' => 'dashboard.reports', 'label' => 'Reports', 'icon' => 'icons.reports']];
-state(['showMobileNav' => false, 'menu' => $menu, 'count' => 0]);
+state(['showMobileNav' => false, 'menu' => $menu]);
 
-$increment = fn() => $this->count++;
+on(['handleLogout' => function () {
+    Auth::logout();
+    redirect()->route('login');
+}]);
 
 ?>
 
@@ -24,7 +27,7 @@ $increment = fn() => $this->count++;
                 <img src="{{ asset('images/logo.png') }}" alt="" class="crisp h-10" />
             </div>
 
-            {{--  Add subnav here  --}}
+            <x-dashboard.profile-menu />
         </div>
     </div>
 
