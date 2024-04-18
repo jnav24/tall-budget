@@ -23,8 +23,7 @@
                 @endisset
             </div>
 
-            <div v-if="$slots.footer"
-                class="flex flex-row items-center justify-center px-6 py-4 sm:justify-end sm:bg-gray-100">
+            <div class="flex flex-row items-center justify-center px-6 py-4 sm:justify-end sm:bg-gray-100">
                 @yield('footer')
             </div>
         </div>
