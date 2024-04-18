@@ -4,8 +4,8 @@
         <p class="text-sm text-gray-600">make the...</p>
     </div>
     <div class="w-1/2">
-        <div class="bg-white my-2 p-4 rounded-md shadow-sm transition duration-150 sm:my-4">
+        <x-dashboard.card>
             world go round
-        </div>
+        </x-dashboard.card>
     </div>
 </section>
