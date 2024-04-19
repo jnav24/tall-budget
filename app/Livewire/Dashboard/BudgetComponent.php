@@ -3,12 +3,11 @@
 namespace App\Livewire\Dashboard;
 
 use App\Models\Budget;
-use App\Models\BudgetAggregation;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -16,7 +15,7 @@ use Livewire\Component;
 #[Layout('layouts.dashboard')]
 class BudgetComponent extends Component
 {
-    public Collection $aggregations;
+    public Collection $allYears;
     public Collection $budgets;
     public string $selectedYear = '';
 
@@ -33,17 +32,15 @@ class BudgetComponent extends Component
                         'id' => $budget->id,
                         'name' => $budget->name,
                         'budget_cycle' => $budget->budget_cycle,
-                        'saved' => $budget->aggregations?->shift()?->value ?? 0,
+                        'saved' => '$' . number_format($budget->aggregations?->shift()?->value ?? 0, 2),
                     ]
                 );
-            });
+            })
+            ->groupBy(
+                fn ($item) => Carbon::parse($item['budget_cycle'])->format('Y')
+            );
 
-        $this->aggregations = BudgetAggregation::query()
-            ->select(DB::raw('YEAR(created_at) as year'))
-            ->groupBy('year')
-            ->orderByDesc('year')
-            ->get()
-            ->pluck('year');
+        $this->allYears = $this->budgets->keys();
     }
 
     #[Computed]
