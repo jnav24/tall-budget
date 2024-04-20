@@ -5,27 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-/**
- * App\Models\UserVehicle
- *
- * @property int $id
- * @property int $user_id
- * @property string $make
- * @property string $model
- * @property string $year
- * @property string $color
- * @property string|null $license
- * @property int $active
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\User $user
- *
- * @method static \Illuminate\Database\Eloquent\Builder|UserVehicle newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|UserVehicle newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|UserVehicle query()
- *
- * @mixin \Eloquent
- */
 class UserVehicle extends Model
 {
     /**

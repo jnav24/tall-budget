@@ -7,24 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-/**
- * App\Models\UserProfile
- *
- * @property int $id
- * @property int $user_id
- * @property string $first_name
- * @property string $last_name
- * @property string $image
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\User|null $user
- *
- * @method static \Illuminate\Database\Eloquent\Builder|UserProfile newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|UserProfile newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|UserProfile query()
- *
- * @mixin \Eloquent
- */
 class UserProfile extends Model
 {
     use HasFactory;
