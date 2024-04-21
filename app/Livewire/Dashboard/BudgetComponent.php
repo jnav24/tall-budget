@@ -10,6 +10,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 #[Layout('layouts.dashboard')]
@@ -18,6 +19,7 @@ class BudgetComponent extends Component
     public Collection $allYears;
     public Collection $budgets;
     public string $selectedYear = '';
+    public bool $isSubmit = false;
 
     public function mount()
     {
@@ -27,12 +29,14 @@ class BudgetComponent extends Component
             ->orderBy('id', 'desc')
             ->get()
             ->map(function ($budget) {
+                $savedAmount = $budget->aggregations?->shift()?->value ?? 0;
                 return collect(
                     [
                         'id' => $budget->id,
                         'name' => $budget->name,
                         'budget_cycle' => $budget->budget_cycle,
-                        'saved' => '$' . number_format($budget->aggregations?->shift()?->value ?? 0, 2),
+                        'saved_dollar' => '$' . number_format($savedAmount, 2),
+                        'saved' => $savedAmount,
                     ]
                 );
             })
@@ -54,6 +58,13 @@ class BudgetComponent extends Component
         }
 
         // @todo return aggregations
+    }
+
+    #[On('add-new-budget')]
+    public function addNewBudget(): void
+    {
+//        $this->isSubmit = true;
+//        $this->dispatch('close-modal');
     }
 
     public function render(): View|Application|Factory
