@@ -7,11 +7,19 @@
         'primary' => 'bg-primary text-white hover:bg-opacity-85 active:bg-dark-primary',
         'secondary' => 'bg-secondary text-gray-700 hover:bg-opacity-85 active:bg-dark-secondary',
     ];
+
+    $styles = [
+        $colors[$color] ?? $colors['default'],
+        $block ? 'w-full' : '',
+        $fab ? 'rounded-full p-2' : 'rounded-md px-6 py-3 text-sm',
+        'focus:shadow-outline rounded transition duration-150 focus:outline-none',
+        $class
+    ];
+
+    $styles = implode(" ", $styles);
 @endphp
 
-<button
-    class="focus:shadow-outline {{ $colors[$color] ?? $colors['default'] }} {{ $block ? 'w-full' : '' }} {{ $fab ? 'rounded-full p-2' : 'rounded-md px-6 py-3 text-sm' }} rounded transition duration-150 focus:outline-none {{ $class }}"
-    {{ $attributes }}>
+<button class="{{ $styles }}" {{ $attributes }}>
     <span class="flex flex-row items-center justify-center space-x-2">
         {{ $slot }}
     </span>
