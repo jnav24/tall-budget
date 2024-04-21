@@ -14,7 +14,6 @@
             $refs.subNav.classList.add('h-0', 'py-0');
 
             $watch('selected', (value) => {
-                console.log(value);
                 if (!value) {
                     setTimeout(() => $refs.subNav.classList.add('h-0', 'py-0'), 400);
                 } else {
