@@ -1,4 +1,4 @@
-@props(['label', 'placeholder' => 'Select', 'isDisabled' => false])
+@props(['label', 'items', 'itemLabel' => 'label', 'itemValue' => 'value', 'placeholder' => 'Select', 'isDisabled' => false])
 
 @php
     $labelId = preg_replace('/\s+/', '_', strtolower($label));
@@ -21,7 +21,11 @@
     tabindex="0"
     x-data="{
         isDisabled: @js($isDisabled),
+        items: [],
+        itemLabel: @js($itemLabel),
+        itemValue: @js($itemValue),
         selected: false,
+        selectedValue: '',
 
         get placeHolder() {
             return @js($placeholder);
@@ -29,6 +33,7 @@
 
         init() {
             $refs.dropDownItems.classList.add('h-0', 'py-0');
+            this.items = @js($items);
         },
 
         handleBlur() {
@@ -42,11 +47,27 @@
                 this.selected = !this.selected;
             }
         },
+
+        setValue(value) {
+            this.selectedValue = value;
+            this.selected = false;
+        },
+
+        $watch('selected', (value) => {
+            if (value) {
+                setTimeout(() => {
+                    $refs.dropDownItems.classList.add('h-0', 'py-0');
+                }, 300);
+            } else {
+                $refs.dropDownItems.classList.remove('h-auto', 'py-1');
+            }
+        }),
     }"
     x-bind:class="{ 'z-50': selected, 'z-0': !selected }"
     @blur="handleBlur()"
     @click="handleClick()"
 >
+    <input type="hidden" x-model="selectedValue">
     <span class="flex-1" x-text="placeHolder"></span>
     <span
         class="transform transition duration-300"
@@ -63,6 +84,8 @@
         }"
         ref="dropDownItems"
     >
-        items here
+        <template x-for="(item, index) in items" :key="index">
+            <div class="hover:bg-gray-200 p-2" @click="setValue(item[itemValue])" x-text="item[itemValue]"></div>
+        </template>
     </div>
 </div>
