@@ -1,7 +1,8 @@
-@props(['label', 'items', 'itemLabel' => 'label', 'itemValue' => 'value', 'placeholder' => 'Select', 'isDisabled' => false])
+@props(['label', 'items', 'name' => '', 'itemLabel' => 'label', 'itemValue' => 'value', 'placeholder' => 'Select', 'isDisabled' => false])
 
 @php
     $labelId = preg_replace('/\s+/', '_', strtolower($label));
+    $formLabel = empty($name) ? $labelId : $name;
     $hasError = $errors->has($labelId);
     $hasItems = count($items) > 0;
 
@@ -22,8 +23,9 @@
         class="{{ $styles }}"
         tabindex="0"
         x-data="{
+            formLabel: @js($formLabel),
             isDisabled: @js($isDisabled),
-            items: [],
+            items: @js($items),
             itemLabel: @js($itemLabel),
             itemValue: @js($itemValue),
             selected: false,
@@ -66,6 +68,7 @@
             },
 
             setValue(value) {
+                $dispatch('handle-on-change', { [this.formLabel]: value });
                 this.selectedValue = value;
                 this.selected = false;
             },
