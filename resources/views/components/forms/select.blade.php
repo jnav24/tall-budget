@@ -31,6 +31,7 @@
     <div
         class="{{ $styles }}"
         tabindex="0"
+        wire:ignore
         x-data="{
             formLabel: @js($formLabel),
             isDisabled: @js($isDisabled),
@@ -85,8 +86,6 @@
         x-bind:class="{ 'z-50': selected, 'z-0': !selected }"
         @blur="handleBlur()"
     >
-        <input type="hidden" x-model="selectedValue">
-
         <div
             class="w-full flex px-2 py-2 items-center"
             @click="handleClick()"

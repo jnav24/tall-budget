@@ -9,12 +9,11 @@
         updateForm(event) {
             const { detail } = event;
             this.form = { ...this.form, ...detail };
-            console.log(detail);
-            console.log(this.form);
         },
 
         submitForm() {
             this.isSubmit = true;
+            $dispatch('close-modal');
             $dispatch('add-new-budget', this.form);
             // @todo handle routing
             this.isSubmit = false;
