@@ -8,7 +8,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Collection;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -18,8 +17,6 @@ class BudgetComponent extends Component
 {
     public Collection $allYears;
     public Collection $budgets;
-    public string $selectedYear = '';
-    public bool $isSubmit = false;
     public int $nextBudget = 1;
     public int $currentYear = 1970;
 
@@ -58,19 +55,6 @@ class BudgetComponent extends Component
 
         $this->allYears = $this->budgets->keys()->map(fn ($year) => ['label' => $year, 'value' => $year]);
         $this->nextBudget = $this->getLatestBudgetMonth();
-    }
-
-    #[Computed]
-    public function years(): void
-    {
-        // @todo get aggregations
-
-        // @todo add `&& $this->aggregations->count()` to conditional
-        if ($this->selectedYear === '') {
-            $this->selectedYear = '2024';
-        }
-
-        // @todo return aggregations
     }
 
     #[On('add-new-budget')]
