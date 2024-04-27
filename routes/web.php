@@ -9,8 +9,8 @@ use App\Livewire\Auth\Passwords\Reset;
 use App\Livewire\Auth\Register;
 use App\Livewire\Auth\Verify;
 use App\Livewire\Dashboard\BudgetComponent;
-use App\Livewire\Dashboard\Home;
-use App\Livewire\Dashboard\Settings;
+use App\Livewire\Dashboard\HomeComponent;
+use App\Livewire\Dashboard\SettingsComponent;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,19 +44,19 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::group(['prefix' => 'dashboard'], function () {
-        Route::get('/', Home::class)
+        Route::get('/', HomeComponent::class)
             ->name('dashboard.home');
 
         Route::get('/budgets', BudgetComponent::class)
             ->name('dashboard.budgets');
 
-        Route::get('/budgets/{budget}', Home::class)
+        Route::get('/budgets/{budget}', HomeComponent::class)
             ->name('dashboard.budget.edit');
 
-        Route::get('/reports', Home::class)
+        Route::get('/reports', HomeComponent::class)
             ->name('dashboard.reports');
 
-        Route::get('/settings', Settings::class)
+        Route::get('/settings', SettingsComponent::class)
             ->name('dashboard.settings');
     });
 });

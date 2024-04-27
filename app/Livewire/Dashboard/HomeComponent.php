@@ -9,10 +9,10 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 #[Layout('layouts.dashboard')]
-class Settings extends Component
+class HomeComponent extends Component
 {
     public function render(): View|Application|Factory
     {
-        return view('livewire.dashboard.settings');
+        return view('livewire.dashboard.home');
     }
 }
