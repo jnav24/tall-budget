@@ -3,7 +3,7 @@
 namespace App\Livewire\Dashboard;
 
 use App\Models\Budget;
-use Carbon\Carbon;
+use Carbon\{Carbon, CarbonPeriod};
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -20,9 +20,19 @@ class BudgetComponent extends Component
     public Collection $budgets;
     public string $selectedYear = '';
     public bool $isSubmit = false;
+    public int $nextBudget = 1;
+    public int $currentYear = 1970;
 
-    public function mount()
+    /** @var string[] $allMonths */
+    public array $allMonths = [];
+
+    public $budgetMonths = [];
+
+    public function mount(): void
     {
+        $this->allMonths = $this->getAllMonths();
+        $this->currentYear = Carbon::now()->format('Y');
+
         $this->budgets = Budget::query()
             ->withAggregations()
             ->where('user_id', auth()->user()->id)
@@ -44,7 +54,10 @@ class BudgetComponent extends Component
                 fn ($item) => Carbon::parse($item['budget_cycle'])->format('Y')
             );
 
-        $this->allYears = $this->budgets->keys();
+        $this->updateBudgetWithCurrentYear();
+
+        $this->allYears = $this->budgets->keys()->map(fn ($year) => ['label' => $year, 'value' => $year]);
+        $this->nextBudget = $this->getLatestBudgetMonth();
     }
 
     #[Computed]
@@ -63,12 +76,54 @@ class BudgetComponent extends Component
     #[On('add-new-budget')]
     public function addNewBudget(): void
     {
-//        $this->isSubmit = true;
-//        $this->dispatch('close-modal');
+        // $this->isSubmit = true;
+        // $this->dispatch('close-modal');
     }
 
     public function render(): View|Application|Factory
     {
         return view('livewire.dashboard.budget');
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function getAllMonths(): array
+    {
+        $period = CarbonPeriod::create('1970-01-01', '1 month', '1970-12-31');
+
+        $months = [];
+
+        foreach ($period as $idx => $date) {
+            $months[] = [
+                'label' => $date->format('F'),
+                'value' => $idx + 1,
+            ];
+        }
+
+        return $months;
+    }
+
+    private function updateBudgetWithCurrentYear(): void
+    {
+        if (empty($this->budgets->get($this->currentYear))) {
+            $this->budgets = collect([$this->currentYear => []])->union($this->budgets);
+        }
+    }
+
+    private function getLatestBudgetMonth(): int
+    {
+        /** @var Collection $currentYearBudgets */
+        $currentYearBudgets = $this->budgets->get($this->currentYear);
+
+        if (! empty($currentYearBudgets) && $currentYearBudgets->count()) {
+            $month = Carbon::parse($currentYearBudgets->first()['budget_cycle'])->month;
+
+            if ($month < 12) {
+                return $month + 1;
+            }
+        }
+
+        return 1;
     }
 }

@@ -1,4 +1,4 @@
-@props(['budget-months'])
+@props(['budget-months', 'budget-years', 'next-month', 'current-year'])
 
 <div
     class="w-100"
@@ -28,8 +28,8 @@
     </h2>
 
     <div class="px-4 mb-4 grid grid-cols-2 gap-3" @handle-on-change.window="updateForm($event)">
-        <x-forms.select label="Month" :items="$budgetMonths" />
-        <x-forms.select label="Year" :items="[]" />
+        <x-forms.select label="Month" :items="$budgetMonths" :value="$nextMonth" />
+        <x-forms.select label="Year" :items="$budgetYears" :value="$currentYear"/>
     </div>
 
     <div

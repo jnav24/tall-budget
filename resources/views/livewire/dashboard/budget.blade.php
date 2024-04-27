@@ -9,7 +9,12 @@
         </x-dashboard.modal>
 
         <x-dashboard.modal name="budget-modal">
-            <x-modals.budget :budget-months="$budgetMonths" />
+            <x-modals.budget
+                :budget-months="$allMonths"
+                :budget-years="$allYears"
+                :next-month="$nextBudget"
+                :current-year="$currentYear"
+            />
         </x-dashboard.modal>
 
         <div class="flex flex-col sm:flex-row items-center justify-end pl-4 pr-2 sm:px-0 space-x-2" x-data>
@@ -33,7 +38,7 @@
 
             init() {
                 this.budgets = @js($budgets);
-                this.selectedSidebar = {{ $allYears[0] }};
+                this.selectedSidebar = {{ $allYears[0]['value'] }};
                 this.sidebarItems = @js($allYears);
             },
 

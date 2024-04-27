@@ -1,4 +1,13 @@
-@props(['label', 'items', 'name' => '', 'itemLabel' => 'label', 'itemValue' => 'value', 'placeholder' => 'Select', 'isDisabled' => false])
+@props([
+    'label',
+    'items',
+    'name' => '',
+    'itemLabel' => 'label',
+    'itemValue' => 'value',
+    'placeholder' => 'Select',
+    'isDisabled' => false,
+    'value' => ''
+])
 
 @php
     $labelId = preg_replace('/\s+/', '_', strtolower($label));
@@ -29,7 +38,7 @@
             itemLabel: @js($itemLabel),
             itemValue: @js($itemValue),
             selected: false,
-            selectedValue: '',
+            selectedValue: @js($value),
 
             get placeHolder() {
                 const obj = this.items.find((item) => item[this.itemValue] === this.selectedValue);
