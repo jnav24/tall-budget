@@ -17,7 +17,9 @@
                 @click="selectedSidebar = item.value"
             >
                 <span x-text="item.label"></span>
-                <span class="bg-danger text-white text-center rounded-full h-6 min-w-6 flex items-center justify-center">1</span>
+                <template x-if="notifications.length">
+                    <span class="bg-danger text-white text-center rounded-full h-6 min-w-6 flex items-center justify-center">1</span>
+                </template>
             </li>
         </template>
     </ul>
