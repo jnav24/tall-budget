@@ -3,7 +3,7 @@
 <div
     class="w-100"
     x-data="{
-        form: {},
+        form: { month: @js($nextMonth), year: @js($currentYear) },
         isSubmit: false,
 
         updateForm(event) {
@@ -14,8 +14,7 @@
         submitForm() {
             this.isSubmit = true;
             $dispatch('close-modal');
-            $dispatch('add-new-budget', this.form);
-            // @todo handle routing
+            $dispatch('add-new-budget', { form: this.form });
             this.isSubmit = false;
         },
     }"
