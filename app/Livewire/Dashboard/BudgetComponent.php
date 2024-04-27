@@ -58,10 +58,22 @@ class BudgetComponent extends Component
     }
 
     #[On('add-new-budget')]
-    public function addNewBudget(): void
+    public function addNewBudget($form): void
     {
-        // $this->isSubmit = true;
-        // $this->dispatch('close-modal');
+        if (empty($form['year']) || empty($form['month'])) {
+            abort(422);
+        }
+
+        $budget = Budget::query()
+            ->where('user_id', auth()->user()->id)
+            ->where('budget_cycle', "{$form['year']}-{$form['month']}-01 00:00:00")
+            ->first();
+
+        if (empty($budget)) {
+            // Create a new budget based off budget template
+        }
+
+        $this->redirectRoute('dashboard.budget.edit', ['budget' => $budget->id]);
     }
 
     public function render(): View|Application|Factory
