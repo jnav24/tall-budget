@@ -12,7 +12,7 @@ on(['handleLogout' => function () {
 
 ?>
 
-<nav class="relative z-50">
+<nav class="z-50 w-full fixed">
     <div class="relative flex h-16 flex-row items-center bg-primary px-4 py-1">
         <div class="container mx-auto flex flex-row items-center justify-between">
             <div class="flex flex-row items-center">
