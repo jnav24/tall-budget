@@ -61,3 +61,7 @@
     background-size: cover;
     @apply absolute left-0 top-0 w-full h-full z-10;
 }
+
+.dashboard-content {
+    min-height: calc(100vh - 2vw);
+}
