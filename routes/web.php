@@ -9,6 +9,7 @@ use App\Livewire\Auth\Passwords\Reset;
 use App\Livewire\Auth\Register;
 use App\Livewire\Auth\Verify;
 use App\Livewire\Dashboard\BudgetComponent;
+use App\Livewire\Dashboard\BudgetTemplateComponent;
 use App\Livewire\Dashboard\HomeComponent;
 use App\Livewire\Dashboard\SettingsComponent;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +53,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('/budgets/{budget}', HomeComponent::class)
             ->name('dashboard.budget.edit');
+
+        Route::get('/budget-template', BudgetTemplateComponent::class)
+            ->name('dashboard.budget.template');
 
         Route::get('/reports', HomeComponent::class)
             ->name('dashboard.reports');
