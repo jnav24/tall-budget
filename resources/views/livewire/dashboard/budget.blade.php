@@ -18,10 +18,10 @@
         </x-dashboard.modal>
 
         <div class="flex flex-col sm:flex-row items-center justify-end pl-4 pr-2 sm:px-0 space-x-2" x-data>
-            <x-forms.button class="mb-4 sm:mb-0 w-full sm:w-auto" color="secondary">
+            <x-link button :to="route('dashboard.budget.template')">
                 <x-icons.pencil-square class="size-4 mr-2" />
                 <span>Edit Template</span>
-            </x-forms.button>
+            </x-link>
 
             <x-forms.button class="mb-4 sm:mb-0 w-full sm:w-auto pr-2" color="primary" @click="$dispatch('open-modal', { name: 'budget-modal' })">
                 <span class="flex-1">Add Budget</span>
@@ -33,6 +33,7 @@
 
         <div class="grid grid-cols-4 gap-3" x-data="{
             budgets: [],
+            notifications: [],
             selectedSidebar: '',
             sidebarItems: [],
 
