@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Childcare extends Model
 {
@@ -64,7 +65,7 @@ class Childcare extends Model
     /**
      * @return HasOne
      */
-    public function type()
+    public function type(): HasOne
     {
         return $this->hasOne(ChildcareType::class, 'id', 'bank_type_id');
     }
