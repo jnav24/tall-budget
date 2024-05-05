@@ -2,59 +2,29 @@
 
 namespace App\Models;
 
-use App\Traits\WithExpensesTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Budget extends Model
+class BudgetTemplate extends Model
 {
-    use HasFactory, WithExpensesTrait;
+    use HasFactory;
 
     /**
-     * @var array
-     */
-    protected $fillable = [
-        'id',
-        'name',
-        'budget_cycle',
-        'user_id',
-    ];
-
-    /**
-     * Hide columns
+     * Table name
      *
-     * @var array
+     * @var string
      */
-    protected $hidden = [
-        'user_id',
-        'created_at',
-        'updated_at',
-    ];
-
-    public function scopeWithAggregations($query)
-    {
-        return $query->with(['aggregations' => fn ($q) => $q->where('type', 'saved')]);
-    }
+    protected $table = 'budget_templates';
 
     /**
-     * Aggregations
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function aggregations()
-    {
-        return $this->hasMany(BudgetAggregation::class, 'budget_id', 'id');
-    }
-
-    /**
-     * Banks
+     * Bank Template
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function banks(): HasMany
     {
-        return $this->hasMany(Bank::class, 'budget_id', 'id');
+        return $this->hasMany(BankTemplate::class, 'budget_template_id', 'id');
     }
 
     /**
@@ -64,17 +34,17 @@ class Budget extends Model
      */
     public function childcare(): HasMany
     {
-        return $this->hasMany(Childcare::class, 'budget_id', 'id');
+        return $this->hasMany(ChildcareTemplate::class, 'budget_template_id', 'id');
     }
 
     /**
-     * Credit Card
+     * Credit Card Template
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function credit_cards(): HasMany
     {
-        return $this->hasMany(CreditCard::class, 'budget_id', 'id');
+        return $this->hasMany(CreditCardTemplate::class, 'budget_template_id', 'id');
     }
 
     /**
@@ -84,7 +54,7 @@ class Budget extends Model
      */
     public function education(): HasMany
     {
-        return $this->hasMany(Education::class, 'budget_id', 'id');
+        return $this->hasMany(EducationTemplate::class, 'budget_template_id', 'id');
     }
 
     /**
@@ -94,7 +64,7 @@ class Budget extends Model
      */
     public function entertainment(): HasMany
     {
-        return $this->hasMany(Entertainment::class, 'budget_id', 'id');
+        return $this->hasMany(EntertainmentTemplate::class, 'budget_template_id', 'id');
     }
 
     /**
@@ -104,7 +74,7 @@ class Budget extends Model
      */
     public function food(): HasMany
     {
-        return $this->hasMany(Food::class, 'budget_id', 'id');
+        return $this->hasMany(FoodTemplate::class, 'budget_template_id', 'id');
     }
 
     /**
@@ -114,7 +84,7 @@ class Budget extends Model
      */
     public function gift(): HasMany
     {
-        return $this->hasMany(Gift::class, 'budget_id', 'id');
+        return $this->hasMany(GiftTemplate::class, 'budget_template_id', 'id');
     }
 
     /**
@@ -124,17 +94,17 @@ class Budget extends Model
      */
     public function housing(): HasMany
     {
-        return $this->hasMany(Housing::class, 'budget_id', 'id');
+        return $this->hasMany(HousingTemplate::class, 'budget_template_id', 'id');
     }
 
     /**
-     * Investments
+     * Investment Template
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function investments(): HasMany
     {
-        return $this->hasMany(Investment::class, 'budget_id', 'id');
+        return $this->hasMany(InvestmentTemplate::class, 'budget_template_id', 'id');
     }
 
     /**
@@ -144,7 +114,7 @@ class Budget extends Model
      */
     public function incomes(): HasMany
     {
-        return $this->hasMany(Income::class, 'budget_id', 'id');
+        return $this->hasMany(IncomeTemplate::class, 'budget_template_id', 'id');
     }
 
     /**
@@ -154,7 +124,7 @@ class Budget extends Model
      */
     public function loan(): HasMany
     {
-        return $this->hasMany(Loan::class, 'budget_id', 'id');
+        return $this->hasMany(LoanTemplate::class, 'budget_template_id', 'id');
     }
 
     /**
@@ -164,7 +134,7 @@ class Budget extends Model
      */
     public function personal(): HasMany
     {
-        return $this->hasMany(Personal::class, 'budget_id', 'id');
+        return $this->hasMany(PersonalTemplate::class, 'budget_template_id', 'id');
     }
 
     /**
@@ -174,7 +144,7 @@ class Budget extends Model
      */
     public function shopping(): HasMany
     {
-        return $this->hasMany(Shopping::class, 'budget_id', 'id');
+        return $this->hasMany(ShoppingTemplate::class, 'budget_template_id', 'id');
     }
 
     /**
@@ -184,7 +154,7 @@ class Budget extends Model
      */
     public function subscription(): HasMany
     {
-        return $this->hasMany(Subscription::class, 'budget_id', 'id');
+        return $this->hasMany(SubscriptionTemplate::class, 'budget_template_id', 'id');
     }
 
     /**
@@ -194,7 +164,7 @@ class Budget extends Model
      */
     public function tax(): HasMany
     {
-        return $this->hasMany(Tax::class, 'budget_id', 'id');
+        return $this->hasMany(TaxTemplate::class, 'budget_template_id', 'id');
     }
 
     /**
@@ -204,46 +174,46 @@ class Budget extends Model
      */
     public function travel(): HasMany
     {
-        return $this->hasMany(Travel::class, 'budget_id', 'id');
+        return $this->hasMany(TravelTemplate::class, 'budget_template_id', 'id');
     }
 
     /**
-     * Medical
+     * Medical Template
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function medical(): HasMany
     {
-        return $this->hasMany(Medical::class, 'budget_id', 'id');
+        return $this->hasMany(MedicalTemplate::class, 'budget_template_id', 'id');
     }
 
     /**
-     * Miscellaneous
+     * Miscellaneous Template
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function miscellaneous(): HasMany
     {
-        return $this->hasMany(Miscellaneous::class, 'budget_id', 'id');
+        return $this->hasMany(MiscellaneousTemplate::class, 'budget_template_id', 'id');
     }
 
     /**
-     * Utilities
+     * Utilities Template
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function utilities(): HasMany
     {
-        return $this->hasMany(Utility::class, 'budget_id', 'id');
+        return $this->hasMany(UtilityTemplate::class, 'budget_template_id', 'id');
     }
 
     /**
-     * Vehicles
+     * Vehicles Template
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function vehicles(): HasMany
     {
-        return $this->hasMany(Vehicle::class, 'budget_id', 'id');
+        return $this->hasMany(VehicleTemplate::class, 'budget_template_id', 'id');
     }
 }
