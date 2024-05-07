@@ -257,6 +257,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|BudgetTemplate whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BudgetTemplate whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BudgetTemplate whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BudgetTemplate withExpenses()
  */
 	class BudgetTemplate extends \Eloquent {}
 }
