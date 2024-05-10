@@ -4,7 +4,7 @@
 @section('body')
     <livewire:dashboard.nav />
 
-    <div class="dashboard-content overflow-y-auto bg-gray-200 pt-30 pb-8">
+    <div class="h-screen overflow-y-auto bg-gray-200 pt-30 pb-8">
         @yield('cta')
         <div class="container mx-auto {{ $hasTopPadding ? 'pt-8' : '' }}">
             {{ $slot }}
