@@ -7,6 +7,7 @@ use App\Models\BudgetTemplate;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -22,9 +23,11 @@ class BudgetTemplateComponent extends Component
 
     public function mount(): void
     {
-        $this->billTypes = BillType::query()
-            ->orderBy('name')
-            ->get()
+        $this->billTypes = Cache::remember('bill_types', now()->addMinutes(60), function () {
+                return BillType::query()
+                    ->orderBy('name')
+                    ->get();
+            })
             ->map(fn (BillType $type) => ['label' => $type->name, 'value' => Str::camel($type->slug)]);
 
         $this->budgetTemplate = BudgetTemplate::query()

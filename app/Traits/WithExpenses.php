@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Models\BillType;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 trait WithExpenses
@@ -12,7 +13,7 @@ trait WithExpenses
 
     public function scopeWithExpenses(Builder $query): Builder
     {
-        $relationships = BillType::all()
+        $relationships = (Cache::get('bill_types') ?? BillType::all())
             ->pluck('slug')
             ->map(
                 fn ($slug) => Str::snake(Str::camel($slug))
