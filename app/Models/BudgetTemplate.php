@@ -11,6 +11,10 @@ class BudgetTemplate extends Model
 {
     use HasFactory, WithExpenses;
 
+    protected $fillable = ['user_id'];
+
+    protected $hidden = ['created_at', 'updated_at'];
+
     /**
      * Table name
      *
