@@ -1,4 +1,4 @@
-@props(['block' => false, 'class' => '', 'color' => 'default', 'fab' => false])
+@props(['block' => false, 'class' => '', 'color' => 'default', 'disabled' => false, 'fab' => false])
 
 @php
     $colors = [
@@ -9,7 +9,7 @@
     ];
 
     $styles = [
-        $colors[$color] ?? $colors['default'],
+        $disabled ? 'bg-gray-300 cursor-text text-gray-500' : $colors[$color] ?? $colors['default'],
         $block ? 'w-full' : '',
         $fab ? 'rounded-full p-2' : 'rounded-md px-6 py-3 text-sm',
         'focus:shadow-outline rounded transition duration-150 focus:outline-none',
