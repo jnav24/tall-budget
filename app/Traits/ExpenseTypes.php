@@ -14,11 +14,10 @@ trait ExpenseTypes
     public function getAllExpenseTypes(): array
     {
         return (Cache::get('bill_types') ?? BillType::all())
-            ->pluck("model")
             ->reduce(function ($result, $item) {
-                $modelName = "{$item}Type";
+                $modelName = "{$item->model}Type";
                 $model = "App\\Models\\{$modelName}";
-                $result[Str::snake($modelName)] = class_exists($model)
+                $result[Str::snake(Str::camel($item->slug))] = class_exists($model)
                     ? (new $model())->get()->toArray()
                     : [];
                 return $result;
