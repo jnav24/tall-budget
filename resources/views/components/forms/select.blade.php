@@ -1,6 +1,7 @@
 @props([
     'label',
     'items',
+    'errors' => [],
     'name' => '',
     'itemLabel' => 'label',
     'itemValue' => 'value',
@@ -28,88 +29,93 @@
 <div>
     <x-forms.label :label="$label" :label-id="$labelId" :has-error="$hasError" />
 
-    <div
-        class="{{ $styles }}"
-        tabindex="0"
-        wire:ignore
-        x-data="{
-            formLabel: @js($formLabel),
-            isDisabled: @js($isDisabled),
-            items: @js($items),
-            itemLabel: @js($itemLabel),
-            itemValue: @js($itemValue),
-            selected: false,
-            selectedValue: @js($value),
-
-            get placeHolder() {
-                const obj = this.items.find((item) => item[this.itemValue] === this.selectedValue);
-
-                if (this.selectedValue && obj) {
-                    return obj[this.itemLabel];
-                }
-
-                return @js($placeholder);
-            },
-
-            init() {
-                $refs.dropDownItems.classList.add('h-0', 'py-0');
-
-                $watch('selected', (value) => {
-                    if (!value) {
-                        setTimeout(() => {
-                            $refs.dropDownItems.classList.add('h-0', 'py-0');
-                        }, 300);
-                    } else {
-                        $refs.dropDownItems.classList.remove('h-0', 'py-0');
-                    }
-                });
-            },
-
-            handleBlur() {
-                if (!this.isDisabled) {
-                    this.selected = false;
-                }
-            },
-
-            handleClick() {
-                if (!this.isDisabled && this.items.length) {
-                    this.selected = !this.selected;
-                }
-            },
-
-            setValue(value) {
-                $dispatch('handle-on-change', { [this.formLabel]: value });
-                this.selectedValue = value;
-                this.selected = false;
-            },
-        }"
-        x-bind:class="{ 'z-50': selected, 'z-0': !selected }"
-        @blur="handleBlur()"
-    >
+    <div class="{{ $styles }}">
         <div
-            class="w-full flex px-2 py-2 items-center"
-            @click="handleClick()"
+            tabindex="0"
+            wire:ignore
+            x-data="{
+                formLabel: @js($formLabel),
+                isDisabled: @js($isDisabled),
+                items: @js($items),
+                itemLabel: @js($itemLabel),
+                itemValue: @js($itemValue),
+                selected: false,
+                selectedValue: @js($value),
+
+                get placeHolder() {
+                    const obj = this.items.find((item) => item[this.itemValue] === this.selectedValue);
+
+                    if (this.selectedValue && obj) {
+                        return obj[this.itemLabel];
+                    }
+
+                    return @js($placeholder);
+                },
+
+                init() {
+                    $refs.dropDownItems.classList.add('h-0', 'py-0');
+
+                    $watch('selected', (value) => {
+                        if (!value) {
+                            setTimeout(() => {
+                                $refs.dropDownItems.classList.add('h-0', 'py-0');
+                            }, 300);
+                        } else {
+                            $refs.dropDownItems.classList.remove('h-0', 'py-0');
+                        }
+                    });
+                },
+
+                handleBlur() {
+                    if (!this.isDisabled) {
+                        this.selected = false;
+                    }
+                },
+
+                handleClick() {
+                    if (!this.isDisabled && this.items.length) {
+                        this.selected = !this.selected;
+                    }
+                },
+
+                setValue(value) {
+                    $dispatch('handle-on-change', { [this.formLabel]: value });
+                    this.selectedValue = value;
+                    this.selected = false;
+                },
+            }"
+            x-bind:class="{ 'z-50': selected, 'z-0': !selected }"
+            @blur="handleBlur()"
         >
-            <span class="flex-1" x-text="placeHolder"></span>
-            <span
-                class="transform transition duration-300"
-                x-bind:class="{ 'rotate-180': selected, 'rotate-0': !selected }"
+            <div
+                class="w-full flex px-2 py-2 items-center"
+                @click="handleClick()"
             >
+                <span class="flex-1" x-text="placeHolder"></span>
+                <span
+                    class="transform transition duration-300"
+                    x-bind:class="{ 'rotate-180': selected, 'rotate-0': !selected }"
+                >
                 <x-icons.chevron-down class="size-4" />
             </span>
-        </div>
+            </div>
 
-        <div
-            class="bg-white border border-gray-300 shadow-sm absolute transform top-0 left-0 rounded w-full transition ease-out duration-300 max-h-48 overflow-y-auto"
-            x-bind:class="{
+            <div
+                class="bg-white border border-gray-300 shadow-sm absolute transform top-0 left-0 rounded w-full transition ease-out duration-300 max-h-48 overflow-y-auto"
+                x-bind:class="{
                 'translate-y-12 opacity-100': selected,
                 'translate-y-0 opacity-0': !selected,
             }"
-            x-ref="dropDownItems"
-        >
-            <template x-for="(item, index) in items" :key="index">
-                <div class="hover:bg-gray-200 p-2" @click="setValue(item[itemValue])" x-text="item[itemLabel]"></div>
-            </template>
+                x-ref="dropDownItems"
+            >
+                <template x-for="(item, index) in items" :key="index">
+                    <div class="hover:bg-gray-200 p-2" @click="setValue(item[itemValue])" x-text="item[itemLabel]"></div>
+                </template>
+            </div>
         </div>
     </div>
+
+    @if ($hasError)
+        <span class="text-sm text-red-600">{{ $errors->first($labelId) }}</span>
+    @endif
 </div>
