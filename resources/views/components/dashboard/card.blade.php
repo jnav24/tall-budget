@@ -19,7 +19,7 @@
 @endphp
 
 <div
-    class="bg-white rounded-md shadow-sm transition duration-150 my-2 sm:my-4 {{ $hasHeader ? 'pt-0' : 'pt-4' }} {{ $hasFooter ? 'pb-0' : 'pb-4' }} {{ $class }}"
+    class="bg-white rounded-md shadow-sm transition duration-150 overflow-hidden my-2 sm:my-4 {{ $hasHeader ? 'pt-0' : 'pt-4' }} {{ $hasFooter ? 'pb-0' : 'pb-4' }} {{ $class }}"
 >
     @if($hasHeader)
         <div class="py-4 px-4 {{ $headerClass }}">
