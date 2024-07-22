@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Enums\CacheEnum;
 use App\Models\BillType;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
@@ -13,7 +14,11 @@ trait ExpenseTypes
      */
     public function getAllExpenseTypes(): array
     {
-        return (Cache::get('bill_types') ?? BillType::all())
+        if (Cache::has(CacheEnum::EXPENSE_TYPES->value)) {
+            return Cache::get(CacheEnum::EXPENSE_TYPES->value);
+        }
+
+        $results = (Cache::get(CacheEnum::BILL_TYPES->value) ?? BillType::all())
             ->reduce(function ($result, $item) {
                 $modelName = "{$item->model}Type";
                 $model = "App\\Models\\{$modelName}";
@@ -22,5 +27,7 @@ trait ExpenseTypes
                     : [];
                 return $result;
             }, []);
+
+        return Cache::remember(CacheEnum::EXPENSE_TYPES->value, now()->addMinutes(60), fn () => $results);
     }
 }
