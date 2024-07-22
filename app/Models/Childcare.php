@@ -67,6 +67,6 @@ class Childcare extends Model
      */
     public function type(): HasOne
     {
-        return $this->hasOne(ChildcareType::class, 'id', 'bank_type_id');
+        return $this->hasOne(ChildcareType::class, 'id', 'childcare_type_id');
     }
 }

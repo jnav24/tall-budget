@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class MedicalTemplate extends Model
 {
@@ -52,4 +53,12 @@ class MedicalTemplate extends Model
      * @var string
      */
     protected $table = 'medical_templates';
+
+    /**
+     * @return HasOne
+     */
+    public function type(): HasOne
+    {
+        return $this->hasOne(MedicalType::class, 'id', 'medical_type_id');
+    }
 }

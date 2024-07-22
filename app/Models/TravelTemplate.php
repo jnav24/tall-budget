@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class TravelTemplate extends Model
 {
@@ -52,4 +53,12 @@ class TravelTemplate extends Model
      * @var string
      */
     protected $table = 'travel_templates';
+
+    /**
+     * @return HasOne
+     */
+    public function type(): HasOne
+    {
+        return $this->hasOne(TravelType::class, 'id', 'travel_type_id');
+    }
 }

@@ -67,6 +67,6 @@ class Personal extends Model
      */
     public function type(): HasOne
     {
-        return $this->hasOne(PersonalType::class, 'id', 'bank_type_id');
+        return $this->hasOne(PersonalType::class, 'id', 'personal_type_id');
     }
 }

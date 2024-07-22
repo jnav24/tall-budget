@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class GiftTemplate extends Model
 {
@@ -52,4 +53,12 @@ class GiftTemplate extends Model
      * @var string
      */
     protected $table = 'gift_templates';
+
+    /**
+     * @return HasOne
+     */
+    public function type(): HasOne
+    {
+        return $this->hasOne(GiftType::class, 'id', 'gift_type_id');
+    }
 }

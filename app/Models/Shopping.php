@@ -67,6 +67,6 @@ class Shopping extends Model
      */
     public function type(): HasOne
     {
-        return $this->hasOne(ShoppingType::class, 'id', 'bank_type_id');
+        return $this->hasOne(ShoppingType::class, 'id', 'shopping_type_id');
     }
 }

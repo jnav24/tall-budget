@@ -67,6 +67,6 @@ class Entertainment extends Model
      */
     public function type(): HasOne
     {
-        return $this->hasOne(EntertainmentType::class, 'id', 'bank_type_id');
+        return $this->hasOne(EntertainmentType::class, 'id', 'entertainment_type_id');
     }
 }

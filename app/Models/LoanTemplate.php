@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class LoanTemplate extends Model
 {
@@ -52,4 +53,12 @@ class LoanTemplate extends Model
      * @var string
      */
     protected $table = 'loan_templates';
+
+    /**
+     * @return HasOne
+     */
+    public function type(): HasOne
+    {
+        return $this->hasOne(LoanType::class, 'id', 'loan_type_id');
+    }
 }

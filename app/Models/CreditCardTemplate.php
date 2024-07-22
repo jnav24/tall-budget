@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class CreditCardTemplate extends Model
 {
@@ -64,4 +65,12 @@ class CreditCardTemplate extends Model
      * @var string
      */
     protected $table = 'credit_card_templates';
+
+    /**
+     * @return HasOne
+     */
+    public function type(): HasOne
+    {
+        return $this->hasOne(CreditCardType::class, 'id', 'credit_card_type_id');
+    }
 }

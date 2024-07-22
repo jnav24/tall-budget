@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class UtilityTemplate extends Model
 {
@@ -52,4 +53,12 @@ class UtilityTemplate extends Model
      * @var string
      */
     protected $table = 'utility_templates';
+
+    /**
+     * @return HasOne
+     */
+    public function type(): HasOne
+    {
+        return $this->hasOne(UtilityType::class, 'id', 'utility_type_id');
+    }
 }

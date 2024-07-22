@@ -67,6 +67,6 @@ class Travel extends Model
      */
     public function type(): HasOne
     {
-        return $this->hasOne(TravelType::class, 'id', 'bank_type_id');
+        return $this->hasOne(TravelType::class, 'id', 'travel_type_id');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class SubscriptionTemplate extends Model
 {
@@ -52,4 +53,12 @@ class SubscriptionTemplate extends Model
      * @var string
      */
     protected $table = 'subscription_templates';
+
+    /**
+     * @return HasOne
+     */
+    public function type(): HasOne
+    {
+        return $this->hasOne(SubscriptionType::class, 'id', 'subscription_type_id');
+    }
 }

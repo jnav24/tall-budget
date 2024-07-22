@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class InvestmentTemplate extends Model
 {
@@ -50,4 +51,12 @@ class InvestmentTemplate extends Model
      * @var string
      */
     protected $table = 'investment_templates';
+
+    /**
+     * @return HasOne
+     */
+    public function type(): HasOne
+    {
+        return $this->hasOne(InvestmentType::class, 'id', 'investment_type_id');
+    }
 }

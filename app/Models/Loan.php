@@ -67,6 +67,6 @@ class Loan extends Model
      */
     public function type(): HasOne
     {
-        return $this->hasOne(LoanType::class, 'id', 'bank_type_id');
+        return $this->hasOne(LoanType::class, 'id', 'loan_type_id');
     }
 }

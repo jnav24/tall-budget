@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class HousingTemplate extends Model
 {
@@ -52,4 +53,12 @@ class HousingTemplate extends Model
      * @var string
      */
     protected $table = 'housing_templates';
+
+    /**
+     * @return HasOne
+     */
+    public function type(): HasOne
+    {
+        return $this->hasOne(HousingType::class, 'id', 'housing_type_id');
+    }
 }

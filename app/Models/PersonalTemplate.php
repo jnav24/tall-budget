@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class PersonalTemplate extends Model
 {
@@ -52,4 +53,12 @@ class PersonalTemplate extends Model
      * @var string
      */
     protected $table = 'personal_templates';
+
+    /**
+     * @return HasOne
+     */
+    public function type(): HasOne
+    {
+        return $this->hasOne(PersonalType::class, 'id', 'personal_type_id');
+    }
 }

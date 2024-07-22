@@ -67,6 +67,6 @@ class Housing extends Model
      */
     public function type(): HasOne
     {
-        return $this->hasOne(HousingType::class, 'id', 'bank_type_id');
+        return $this->hasOne(HousingType::class, 'id', 'housing_type_id');
     }
 }

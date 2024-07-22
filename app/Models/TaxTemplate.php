@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class TaxTemplate extends Model
 {
@@ -52,4 +53,12 @@ class TaxTemplate extends Model
      * @var string
      */
     protected $table = 'tax_templates';
+
+    /**
+     * @return HasOne
+     */
+    public function type(): HasOne
+    {
+        return $this->hasOne(TaxType::class, 'id', 'tax_type_id');
+    }
 }

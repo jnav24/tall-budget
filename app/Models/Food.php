@@ -67,6 +67,6 @@ class Food extends Model
      */
     public function type(): HasOne
     {
-        return $this->hasOne(FoodType::class, 'id', 'bank_type_id');
+        return $this->hasOne(FoodType::class, 'id', 'food_type_id');
     }
 }

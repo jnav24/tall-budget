@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class IncomeTemplate extends Model
 {
@@ -52,4 +53,12 @@ class IncomeTemplate extends Model
      * @var string
      */
     protected $table = 'income_templates';
+
+    /**
+     * @return HasOne
+     */
+    public function type(): HasOne
+    {
+        return $this->hasOne(IncomeType::class, 'id', 'income_type_id');
+    }
 }

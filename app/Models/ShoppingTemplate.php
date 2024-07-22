@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ShoppingTemplate extends Model
 {
@@ -51,4 +52,12 @@ class ShoppingTemplate extends Model
      * @var string
      */
     protected $table = 'shopping_templates';
+
+    /**
+     * @return HasOne
+     */
+    public function type(): HasOne
+    {
+        return $this->hasOne(ShoppingType::class, 'id', 'shopping_type_id');
+    }
 }

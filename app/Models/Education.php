@@ -67,6 +67,6 @@ class Education extends Model
      */
     public function type(): HasOne
     {
-        return $this->hasOne(EducationType::class, 'id', 'bank_type_id');
+        return $this->hasOne(EducationType::class, 'id', 'education_type_id');
     }
 }

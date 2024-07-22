@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class EntertainmentTemplate extends Model
 {
@@ -52,4 +53,12 @@ class EntertainmentTemplate extends Model
      * @var string
      */
     protected $table = 'entertainment_templates';
+
+    /**
+     * @return HasOne
+     */
+    public function type(): HasOne
+    {
+        return $this->hasOne(EntertainmentType::class, 'id', 'entertainment_type_id');
+    }
 }

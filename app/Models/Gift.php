@@ -67,6 +67,6 @@ class Gift extends Model
      */
     public function type(): HasOne
     {
-        return $this->hasOne(GiftType::class, 'id', 'bank_type_id');
+        return $this->hasOne(GiftType::class, 'id', 'gift_type_id');
     }
 }

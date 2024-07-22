@@ -67,6 +67,6 @@ class Subscription extends Model
      */
     public function type(): HasOne
     {
-        return $this->hasOne(SubscriptionType::class, 'id', 'bank_type_id');
+        return $this->hasOne(SubscriptionType::class, 'id', 'subscription_type_id');
     }
 }

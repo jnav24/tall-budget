@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class FoodTemplate extends Model
 {
@@ -52,4 +53,12 @@ class FoodTemplate extends Model
      * @var string
      */
     protected $table = 'food_templates';
+
+    /**
+     * @return HasOne
+     */
+    public function type(): HasOne
+    {
+        return $this->hasOne(FoodType::class, 'id', 'food_type_id');
+    }
 }
