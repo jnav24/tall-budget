@@ -2,39 +2,33 @@
 
 namespace App\Livewire\Dashboard;
 
-use App\Models\Bank;
-use App\Models\BankType;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
-use Illuminate\Support\Collection;
 use Livewire\Attributes\On;
-use Livewire\Attributes\Rule;
+use Livewire\Attributes\{Validate};
 use Livewire\Component;
 
 class BankFormComponent extends Component
 {
-    /** @var Collection<BankType>|null  */
-    public ?Collection $types;
+    /** @var array<string>  */
+    public array $types;
 
-    #[Rule('required')]
+    #[Validate('required')]
     public string $account_type;
 
-    #[Rule('required|numeric|decimal:2')]
+    #[Validate('required|numeric|decimal:2')]
     public string $amount;
 
-    #[Rule('required')]
+    #[Validate('required')]
     public string $name;
 
-    #[Rule('required')]
+    #[Validate('required')]
     public bool $template = false;
 
-    public function mount(): void
+    public function mount($types = []): void
     {
-        $this->types = BankType::all()
-            ->map(
-                fn ($type) => ['label' => $type->name, 'value' => $type->id]
-            );
+        $this->types = array_map(fn ($type) => ['label' => $type['name'], 'value' => $type['id']], $types);
     }
 
     public function resetForm(): void

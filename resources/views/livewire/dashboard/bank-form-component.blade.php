@@ -1,3 +1,5 @@
+@props(['types'])
+
 <form wire:submit.prevent="save">
     <div class="grid grid-cols-2 gap-4 px-4">
         <x-forms.input label="Name" :errors="$errors" wire:model.blur="name" />
