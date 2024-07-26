@@ -1,4 +1,4 @@
-@props(['block' => false, 'class' => '', 'color' => 'default', 'disabled' => false, 'fab' => false])
+@props(['block' => false, 'class' => '', 'color' => 'default', 'disabled' => false, 'fab' => false, 'checkbox' => false])
 
 @php
     $colors = [
@@ -11,7 +11,9 @@
     $styles = [
         $disabled ? 'bg-gray-300 cursor-text text-gray-500' : $colors[$color] ?? $colors['default'],
         $block ? 'w-full' : '',
-        $fab ? 'rounded-full p-2' : 'rounded-md px-6 py-3 text-sm',
+        $fab && !$checkbox ? 'rounded-full p-2' : '',
+        !$fab && $checkbox ? 'p-1 rounded-md' : '',
+        !$fab && !$checkbox ? 'rounded-md px-6 py-3 text-sm' : '',
         'focus:shadow-outline rounded transition duration-150 focus:outline-none',
         $class
     ];
