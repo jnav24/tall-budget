@@ -29,7 +29,7 @@
 <div>
     <x-forms.label :label="$label" :label-id="$labelId" :has-error="$hasError" />
 
-    <div class="{{ $styles }}">
+    <div>
         <div
             tabindex="0"
             wire:ignore
@@ -84,6 +84,7 @@
                     this.selected = false;
                 },
             }"
+            class="{{ $styles }}"
             x-bind:class="{ 'z-50': selected, 'z-0': !selected }"
             @blur="handleBlur()"
         >
