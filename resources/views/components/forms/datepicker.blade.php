@@ -3,6 +3,7 @@
     'readonly' => false,
     'placeholder' => false,
     'label',
+    'value',
 ])
 
 @php
@@ -16,11 +17,12 @@
         dateCounter: 0,
         daysHeader: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
         daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        formLabel: @js($labelId),
         selected: false,
         selectedDate: new Date(),
 
         init() {
-            this.selectedDate = this.formatDate(new Date());
+            this.selectedDate = this.formatDate(@js($value));
             const setSelected = (e) => this.selected = false;
             const stopPropagation = (e) => e.stopPropagation();
 
@@ -86,6 +88,7 @@
             d.setDate(date);
             this.selectedDate = this.formatDate(d);
             this.selected = false;
+            $dispatch('handle-datepicker-change', { [this.formLabel]: this.selectedDate });
         },
 
         isToday(date) {
@@ -101,7 +104,15 @@
         },
 
         formatDate(d) {
-            return d.toLocaleString('default', { year: 'numeric', month: 'long', day: 'numeric' });
+            if (!(d instanceof Date)) {
+                d = new Date(d);
+            }
+
+            if (isNaN(Date.parse(d))) {
+                d = new Date();
+            }
+
+            return d.toLocaleString('default', { year: 'numeric', month: '2-digit', day: '2-digit' });
         },
     }"
     x-ref="datePicker"
@@ -117,10 +128,11 @@
         </div>
 
         <input
-            class="mt-2 w-full rounded border py-2 pl-12 pr-2 outline-none {{ $hasError ? 'border-red-600' : 'border-gray-300 focus:border-primary' }} {{ $readonly ? 'bg-gray-200 text-gray-500' : '' }}"
+            class="mt-2 w-full rounded border py-2 pl-12 pr-2 outline-none {{ $hasError ? 'border-red-600' : 'border-gray-300 focus:border-primary' }} text-gray-400"
             @click="selected = !selected"
             readonly
             aria-labelledby="{{ $labelId }}" placeholder="{{ $placeholder ? $label : '' }}" type="text"
+            x-model="selectedDate"
             {{ $attributes }} />
 
         @if ($hasError)
