@@ -23,9 +23,6 @@ class BankFormComponent extends Component
     #[Validate('required')]
     public string $name;
 
-    #[Validate('required')]
-    public bool $template = false;
-
     public function mount($types = []): void
     {
         $this->types = array_map(fn ($type) => ['label' => $type['name'], 'value' => $type['id']], $types);
