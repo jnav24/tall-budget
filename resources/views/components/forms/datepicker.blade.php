@@ -17,8 +17,10 @@
         daysHeader: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
         daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
         selected: false,
+        selectedDate: new Date(),
 
         init() {
+            this.selectedDate = this.formatDate(new Date());
             const setSelected = (e) => this.selected = false;
             const stopPropagation = (e) => e.stopPropagation();
 
@@ -79,8 +81,27 @@
             return buffer.concat(dates);
         },
 
-        selectDate(d) {
-            console.log('selected date', d);
+        selectDate(date) {
+            const d = this.currentDate;
+            d.setDate(date);
+            this.selectedDate = this.formatDate(d);
+            this.selected = false;
+        },
+
+        isToday(date) {
+            const d = this.currentDate;
+            d.setDate(date);
+            return this.formatDate(d) === this.formatDate(new Date());
+        },
+
+        isSelected(date) {
+            const d = this.currentDate;
+            d.setDate(date);
+            return this.formatDate(d) === this.selectedDate;
+        },
+
+        formatDate(d) {
+            return d.toLocaleString('default', { year: 'numeric', month: 'long', day: 'numeric' });
         },
     }"
     x-ref="datePicker"
@@ -139,7 +160,11 @@
                         <template x-if="d < 32">
                             <button
                                 class="text-sm py-1 rounded-full text-center w-full focus:outline-none focus:shadow-outline"
-                                x-bind:class="{}"
+                                x-bind:class="{
+                                    'text-gray-600 bg-white hover:bg-gray-200 border-0': !isSelected(d + 1) && !isToday(d + 1),
+                                    'text-white bg-primary border-0': isSelected(d + 1),
+                                    'text-primary shadow-inner bg-gray-200': !isSelected(d + 1) && isToday(d + 1),
+                                }"
                                 @click="selectDate(d + 1)"
                                 type="button">
                                 <span x-text="d + 1"></span>
