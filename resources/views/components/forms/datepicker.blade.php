@@ -13,6 +13,7 @@
 <div
     class="relative"
     x-data="{
+        dateCounter: 0,
         selected: false,
 
         init() {
@@ -35,6 +36,20 @@
                 document.body.removeEventListener('click', setSelected);
             }
         },
+
+        decrementDateCounter() {
+            this.dateCounter--;
+        },
+
+        incrementDateCounter() {
+            this.dateCounter++;
+        },
+
+        dateHeader() {
+            const d = new Date();
+            d.setMonth(d.getMonth() + this.dateCounter);
+            return d.toLocaleString('default', { month: 'long', year: 'numeric' });
+        },
     }"
     x-ref="datePicker"
 >
@@ -49,8 +64,9 @@
         </div>
 
         <input
-            class="mt-2 w-full rounded border p-2 outline-none {{ $hasError ? 'border-red-600' : 'border-gray-300 focus:border-primary' }} {{ $readonly ? 'bg-gray-200 text-gray-500' : '' }}"
+            class="mt-2 w-full rounded border py-2 pl-12 pr-2 outline-none {{ $hasError ? 'border-red-600' : 'border-gray-300 focus:border-primary' }} {{ $readonly ? 'bg-gray-200 text-gray-500' : '' }}"
             @click="selected = !selected"
+            readonly
             aria-labelledby="{{ $labelId }}" placeholder="{{ $placeholder ? $label : '' }}" type="text"
             {{ $attributes }} />
 
@@ -64,6 +80,16 @@
                 'scale-100 opacity-100': selected,
                 'scale-0 opacity-0': !selected,
             }"
-        ></div>
+        >
+            <div class="flex flex-row items-center justify-between text-gray-700">
+                <x-forms.button fab @click="decrementDateCounter()">
+                    <x-icons.chevron-left class="size-4 cursor-pointer" />
+                </x-forms.button>
+                <span class="text-sm" x-text="dateHeader"></span>
+                <x-forms.button fab @click="incrementDateCounter()">
+                    <x-icons.chevron-right class="size-4 cursor-pointer" />
+                </x-forms.button>
+            </div>
+        </div>
     </div>
 </div>
