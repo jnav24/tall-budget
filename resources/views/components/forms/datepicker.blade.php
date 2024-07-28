@@ -14,7 +14,8 @@
     class="relative"
     x-data="{
         dateCounter: 0,
-        days: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+        daysHeader: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+        daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
         selected: false,
 
         init() {
@@ -46,10 +47,40 @@
             this.dateCounter++;
         },
 
-        dateHeader() {
+        get currentDate() {
             const d = new Date();
             d.setMonth(d.getMonth() + this.dateCounter);
+            return d;
+        },
+
+        get dateHeader() {
+            const d = this.currentDate;
             return d.toLocaleString('default', { month: 'long', year: 'numeric' });
+        },
+
+        getFirstDayOfTheMonth() {
+            const d = this.currentDate;
+            return new Date(d.getFullYear(), d.getMonth(), 1).toLocaleString('en-US', { weekday: 'short' });
+        },
+
+        getLastDateOfTheMonth() {
+            const d = this.currentDate;
+            return new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        },
+
+        get datesOfTheMonth() {
+            const buffer = Array.from(
+                Array(this.daysShort.indexOf(this.getFirstDayOfTheMonth())).keys(),
+                num => 60 + num,
+            );
+
+            const dates = Array.from(Array(this.getLastDateOfTheMonth()).keys());
+
+            return buffer.concat(dates);
+        },
+
+        selectDate(d) {
+            console.log('selected date', d);
         },
     }"
     x-ref="datePicker"
@@ -93,8 +124,28 @@
             </div>
 
             <div class="grid-cols-7 gap-1 grid my-2">
-                <template x-for="(day, idx) in days" :key="idx">
+                <template x-for="(day, idx) in daysHeader" :key="idx">
                     <span class="text-center text-sm text-gray-500" x-text="day"></span>
+                </template>
+            </div>
+
+            <div class="grid-cols-7 gap-1 grid">
+                <template x-for="(d, idx) in datesOfTheMonth" :key="idx">
+                    <span>
+                        <template x-if="d > 31">
+                            <span>&nbsp;</span>
+                        </template>
+
+                        <template x-if="d < 32">
+                            <button
+                                class="text-sm py-1 rounded-full text-center w-full focus:outline-none focus:shadow-outline"
+                                x-bind:class="{}"
+                                @click="selectDate(d + 1)"
+                                type="button">
+                                <span x-text="d + 1"></span>
+                            </button>
+                        </template>
+                    </span>
                 </template>
             </div>
         </div>
