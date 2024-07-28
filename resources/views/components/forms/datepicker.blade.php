@@ -14,6 +14,7 @@
     class="relative"
     x-data="{
         dateCounter: 0,
+        days: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
         selected: false,
 
         init() {
@@ -89,6 +90,12 @@
                 <x-forms.button fab @click="incrementDateCounter()">
                     <x-icons.chevron-right class="size-4 cursor-pointer" />
                 </x-forms.button>
+            </div>
+
+            <div class="grid-cols-7 gap-1 grid my-2">
+                <template x-for="(day, idx) in days" :key="idx">
+                    <span class="text-center text-sm text-gray-500" x-text="day"></span>
+                </template>
             </div>
         </div>
     </div>
