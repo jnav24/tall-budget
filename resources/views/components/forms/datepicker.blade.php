@@ -88,7 +88,7 @@
             d.setDate(date);
             this.selectedDate = this.formatDate(d);
             this.selected = false;
-            $dispatch('handle-datepicker-change', { [this.formLabel]: this.selectedDate });
+            $dispatch('handle-datepicker-change', { data: { [this.formLabel]: d } });
         },
 
         isToday(date) {
