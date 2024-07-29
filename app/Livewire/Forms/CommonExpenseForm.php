@@ -8,13 +8,13 @@ use Livewire\Form;
 class CommonExpenseForm extends Form
 {
     #[Validate('required')]
-    public string $name;
+    public string $name = '';
 
     #[Validate('required|decimal:2')]
-    public string $amount;
+    public string $amount = '0.00';
 
     #[Validate('required')]
-    public string $type;
+    public string $type = '';
 
     #[Validate('string')]
     public string $confirmation = '';
@@ -23,7 +23,7 @@ class CommonExpenseForm extends Form
     public bool $calculate = false;
 
     #[Validate('required|date')]
-    public string $paidDate;
+    public string $paidDate = '';
 
     #[Validate('string')]
     public string $notes = '';
