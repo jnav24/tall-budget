@@ -25,6 +25,10 @@ class BudgetTemplateComponent extends Component
 
     public ?BudgetTemplate $budgetTemplate;
 
+    public ?int $id;
+
+    public string $selectedItem = 'banks';
+
     /** @var array  */
     public array $expenseTypes = [];
 
@@ -51,7 +55,20 @@ class BudgetTemplateComponent extends Component
         $template = BudgetTemplate::query()
             ->firstOrCreate(['user_id' => auth()->user()->id]);
         $types = Cache::get('bill_types');
+        $this->id = null;
         dd($types);
+    }
+
+    public function setSelectedExpense(?int $id = null): void
+    {
+         $this->id = $id;
+        // dump($id); // @note it does not go here from the component
+    }
+
+    #[On('set-selected-item')]
+    public function setSelectedSidebar(string $value): void
+    {
+        $this->selectedItem = $value;
     }
 
     public function render(): View|Application|Factory
