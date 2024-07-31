@@ -48,7 +48,7 @@
                 return Math.max(...amounts).toString();
             },
         }">
-            <x-dashboard.sidebar title="Years" />
+            <x-dashboard.sidebar-alpine title="Years" />
 
             <x-dashboard.card class="col-span-4 md:col-span-3 ml-3 mr-4 sm:mx-0">
                 <x-slot:header class="bg-gray-100 rounded-t-lg">
