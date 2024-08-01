@@ -4,11 +4,11 @@
     'placeholder' => false,
     'label',
     'type' => 'text',
-    'id' => null,
+    'name' => null,
 ])
 
 @php
-    $labelId = preg_replace('/\s+/', '_', strtolower($id ?? $label));
+    $labelId = preg_replace('/\s+/', '_', strtolower($name ?? $label));
     $hasError = $errors->has($labelId);
 @endphp
 

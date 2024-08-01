@@ -13,7 +13,7 @@
 @php
     $labelId = preg_replace('/\s+/', '_', strtolower($label));
     $formLabel = empty($name) ? $labelId : $name;
-    $hasError = $errors->has($labelId);
+    $hasError = $errors->has($formLabel);
     $hasItems = count($items) > 0;
 
     $styles = [
@@ -79,7 +79,7 @@
                 },
 
                 setValue(value) {
-                    $dispatch('handle-on-change', { [this.formLabel]: value });
+                    $dispatch('handle-select-change', { [this.formLabel]: value });
                     this.selectedValue = value;
                     this.selected = false;
                 },
@@ -104,9 +104,9 @@
             <div
                 class="bg-white border border-gray-300 shadow-sm absolute transform top-0 left-0 rounded w-full transition ease-out duration-300 max-h-48 overflow-y-auto"
                 x-bind:class="{
-                'translate-y-12 opacity-100': selected,
-                'translate-y-0 opacity-0': !selected,
-            }"
+                    'translate-y-12 opacity-100': selected,
+                    'translate-y-0 opacity-0': !selected,
+                }"
                 x-ref="dropDownItems"
             >
                 <template x-for="(item, index) in items" :key="index">
@@ -117,6 +117,6 @@
     </div>
 
     @if ($hasError)
-        <span class="text-sm text-red-600">{{ $errors->first($labelId) }}</span>
+        <span class="text-sm text-red-600">{{ $errors->first($formLabel) }}</span>
     @endif
 </div>
