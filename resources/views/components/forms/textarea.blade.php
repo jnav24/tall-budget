@@ -3,10 +3,11 @@
     'readonly' => false,
     'placeholder' => false,
     'label',
+    'name' => null,
 ])
 
 @php
-    $labelId = preg_replace('/\s+/', '_', strtolower($label));
+    $labelId = preg_replace('/\s+/', '_', strtolower($name ?? $label));
     $hasError = $errors->has($labelId);
 @endphp
 
