@@ -3,12 +3,14 @@
     'readonly' => false,
     'placeholder' => false,
     'label',
+    'name' => null,
     'value',
 ])
 
 @php
     $labelId = preg_replace('/\s+/', '_', strtolower($label));
-    $hasError = $errors->has($labelId);
+    $formLabel = empty($name) ? $labelId : $name;
+    $hasError = $errors->has($formLabel);
 @endphp
 
 <div
@@ -17,7 +19,7 @@
         dateCounter: 0,
         daysHeader: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
         daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-        formLabel: @js($labelId),
+        formLabel: @js($formLabel),
         selected: false,
         selectedDate: new Date(),
 
